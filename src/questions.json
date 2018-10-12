@@ -1,0 +1,25 @@
+{
+  "questions": [
+    {
+      "question": "What's the Swedish word for Soap?",
+      "answer": "Tvål",
+      "options": [
+        "Schampo",
+        "Tvål",
+        "Såpa",
+        "Skårpa"
+      ]
+    },
+    {
+      "question": "What's the Swedish word for Foam?",
+      "answer": "Lödder",
+      "options": [
+        "Få med",
+        "Gruvarbetare",
+        "Fåne",
+        "Lödder"
+      ]
+    }
+  ]
+}
+
