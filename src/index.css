@@ -12,3 +12,71 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+/* QuestionCard Component */
+.answers .options {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Question Component */
+.question-wrapper {
+  margin: 0;
+  padding: 0.5rem 2.5rem 1.5rem 2.5rem;
+  text-align: left;
+}
+
+/* AnswerOption Component */
+.answerOption {
+  border-top: 1px solid #eee;
+}
+
+.answerOption:hover {
+  background-color: #eefbfe;
+}
+
+.radio-custom-button {
+  position: absolute;
+  width: auto;
+  opacity: 0;
+}
+
+.radio-custom-button,
+.radio-custom-label {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.radio-custom-label {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem 2.5rem 1.5rem 5rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.radio-custom-button ~ .radio-custom-label:before {
+  position: absolute;
+  top: 20px;
+  left: 38px;
+  width: 28px;
+  height: 28px;
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.radio-custom-button:checked ~ .radio-custom-label:before {
+  content: '';
+  background: #8bc53f url(./svg/icon-check.svg) no-repeat;
+  background-size: 27px;
+  border-color: #8bc53f;
+}
