@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import AnswerOption from './AnswerOption';
 
 export default class QuestionCard extends Component {
-  xonAnswerQuestion(chosenOption) {
-    
-  }
+  xonAnswerQuestion(chosenOption) {}
 
   render() {
-    const { question, onAnswerQuestion } = this.props;
+    const { question, handleAnswerSelected, currentAnswerStatus } = this.props;
     return (
       <div className="question-wrapper">
-        <div className="question">
-          {question.question}
-        </div>
+        <div className="question">{question.question}</div>
         <div className="answers">
           <ul className="options">
-            {question.options.map(o => (
-              <AnswerOption option={o} onAnswerQuestion={onAnswerQuestion}/>
+            {question.options.map(option => (
+              <AnswerOption
+                option={option}
+                handleAnswerSelected={handleAnswerSelected}
+                currentAnswerStatus={currentAnswerStatus}
+              />
             ))}
           </ul>
         </div>
@@ -28,9 +28,9 @@ export default class QuestionCard extends Component {
 
 QuestionCard.propTypes = {
   question: PropTypes.object,
-  onAnswerQuestion: PropTypes.func
+  handleAnswerSelected: PropTypes.func
 };
 
 QuestionCard.defaultProptypes = {
-  question: null,
+  question: null
 };
