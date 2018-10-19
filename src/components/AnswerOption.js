@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class AnswerOption extends Component {
-  aFunction() {
-    this.something = '';
+  constructor(props) {
+    super(props);
+    // if (props.currentAnswerStatus === '') {
+    //   this.state = {
+    //     checked: false
+    //   };
+    // }
   }
 
+  handleRadioChange = () => {
+    this.setState({ checked: true });
+  };
+
   render() {
-    const { option, handleAnswerSelected, currentAnswerStatus } = this.props;
+    const { option, handleAnswerSelected, currentAnswerStatus, currentAnswer } = this.props;
     return (
       <li className={`answerOption ${currentAnswerStatus !== '' ? 'gray' : null}`}>
         <input
@@ -18,6 +27,8 @@ class AnswerOption extends Component {
           value={option}
           onClick={evt => handleAnswerSelected(evt.target.value)}
           disabled={currentAnswerStatus}
+          checked={currentAnswer === option}
+          onChange={this.handleRadioChange}
         />
         <label htmlFor={option} className="radio-custom-label">
           {option}

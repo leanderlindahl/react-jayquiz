@@ -3,41 +3,70 @@ import logo from '../logo.svg';
 import '../styles/App.css';
 import loadedQuestions from '../questions.json';
 import QuestionCard from './QuestionCard';
+import ResultCard from './ResultCard';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      questions: loadedQuestions.questions,
-      currentQuestion: 0,
+      questions: [],
+      currentQuestionIndex: 0,
       wrongAnswers: [],
       displayAnswerResponse: false,
       score: 0,
-      currentAnswerStatus: ''
+      currentAnswerStatus: '',
+      finished: false,
+      currentAnswer: '',
+      options: [],
+      formattedQuestion: '',
+      formattedAnswer: 'bu'
     };
-
-    this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
   }
 
   componentDidMount() {
-    // this.setState({
-    //   questions: loadedQuestions.questions,
-    // });
+    fetch('https://opentdb.com/api.php?amount=10&category=18')
+      .then(response => response.json())
+      .then(data => this.setState({ questions: data.results }, this.modifyQuestion));
   }
 
+  unescapeHtml = safe => {
+    return safe
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'");
+  };
+
+  loadQuestionsFromDisk = () => {
+    this.setState({ questions: loadedQuestions.results });
+  };
+
   handleNextClick = () => {
-    const { currentQuestion } = this.state;
+    const { currentQuestionIndex } = this.state;
+    console.log('currentQuestionIndex: ', currentQuestionIndex);
+    console.log('Next was clicked');
+    this.setState(
+      {
+        currentQuestionIndex: currentQuestionIndex + 1,
+        currentAnswerStatus: '',
+        displayAnswerResponse: false
+      },
+      this.modifyQuestion
+    );
+  };
+
+  handleResultClick = () => {
     this.setState({
-      currentQuestion: currentQuestion + 1,
-      currentAnswerStatus: ''
+      finished: true
     });
   };
 
-  handleAnswerSelected(option) {
-    const { questions, currentQuestion, wrongAnswers, score } = this.state;
-
-    if (option === questions[currentQuestion].answer) {
+  handleAnswerSelected = option => {
+    const { questions, currentQuestionIndex, wrongAnswers, score } = this.state;
+    const correctAnswer = this.unescapeHtml(questions[currentQuestionIndex].correct_answer);
+    if (option === correctAnswer) {
       this.setState({
         score: score + 1,
         currentAnswerStatus: 'right'
@@ -47,50 +76,80 @@ class App extends Component {
         wrongAnswers: [
           ...wrongAnswers,
           {
-            question: questions[currentQuestion].question,
+            question: questions[currentQuestionIndex].question,
             yourAnswer: option,
-            correctAnswer: questions[currentQuestion].answer
+            correctAnswer: questions[currentQuestionIndex].answer
           }
         ],
         currentAnswerStatus: 'wrong'
       });
     }
     this.setState({
-      displayAnswerResponse: true
+      displayAnswerResponse: true,
+      currentAnswer: option
+    });
+  };
+
+  modifyQuestion() {
+    const { questions, currentQuestionIndex } = this.state;
+    const question = questions[currentQuestionIndex];
+    const newQuestion = this.unescapeHtml(question.question);
+    const newOptions = question.incorrect_answers.concat(question.correct_answer);
+    const newAnswer = this.unescapeHtml(questions[currentQuestionIndex].correct_answer);
+    for (let i = 0; i < newOptions.length; i += 1) {
+      newOptions[i] = this.unescapeHtml(newOptions[i]);
+    }
+    this.setState({
+      options: newOptions,
+      formattedQuestion: newQuestion,
+      formattedAnswer: newAnswer
     });
   }
 
   render() {
     const {
+      finished,
       questions,
-      currentQuestion,
+      currentQuestionIndex,
       displayAnswerResponse,
       currentAnswerStatus,
-      score
+      score,
+      wrongAnswers,
+      currentAnswer,
+      options,
+      formattedQuestion,
+      formattedAnswer
     } = this.state;
 
     return (
       <div className="App">
         <header className="App-header">A Quiz in ReactJS</header>
         <div>
-          <h3 className="score">Score: {score}</h3>
-          <QuestionCard
-            question={questions[currentQuestion]}
-            handleAnswerSelected={this.handleAnswerSelected}
-            currentAnswerStatus={currentAnswerStatus}
-          />
-          {displayAnswerResponse ? (
+          {questions.length > 0 ? (
             <>
-              <div>{currentAnswerStatus}</div>
-              {currentQuestion < questions.length - 1 ? (
-                <button type="button" onClick={this.handleNextClick}>
-                  Next question
-                </button>
+              {!finished ? (
+                <QuestionCard
+                  question={questions[currentQuestionIndex]}
+                  handleAnswerSelected={this.handleAnswerSelected}
+                  currentAnswerStatus={currentAnswerStatus}
+                  score={score}
+                  displayAnswerResponse={displayAnswerResponse}
+                  next={currentQuestionIndex < questions.length - 1}
+                  handleNextClick={this.handleNextClick}
+                  handleResultClick={this.handleResultClick}
+                  currentAnswer={currentAnswer}
+                  options={options}
+                  formattedQuestion={formattedQuestion}
+                  formattedAnswer={formattedAnswer}
+                  questionNumber={currentQuestionIndex + 1}
+                />
               ) : (
-                <button type="button">Result</button>
+                <ResultCard score={score} wrongAnswers={wrongAnswers} />
               )}
             </>
-          ) : null}
+          ) : (
+            <span>Loading...</span>
+          )}
         </div>
       </div>
     );

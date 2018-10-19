@@ -2,35 +2,95 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AnswerOption from './AnswerOption';
 
-export default class QuestionCard extends Component {
-  xonAnswerQuestion(chosenOption) {}
+class QuestionCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // options: [],
+      // formattedQuestion: ''
+    };
+  }
+
+  componentDidMount() {
+    //this.modifyQuestion();
+  }
 
   render() {
-    const { question, handleAnswerSelected, currentAnswerStatus } = this.props;
+    const {
+      score,
+      handleAnswerSelected,
+      currentAnswerStatus,
+      currentAnswer,
+      displayAnswerResponse,
+      next,
+      handleNextClick,
+      handleResultClick,
+      options,
+      formattedQuestion,
+      formattedAnswer,
+      questionNumber
+    } = this.props;
+
     return (
       <div className="question-wrapper">
-        <div className="question">{question.question}</div>
+        <h3 className="score">
+          Question number:
+          {` ${questionNumber} `}
+          Score:
+          {` ${score}`}
+        </h3>
+        <div className="question">{formattedQuestion}</div>
         <div className="answers">
           <ul className="options">
-            {question.options.map(option => (
+            {options.map(option => (
               <AnswerOption
+                key={option}
                 option={option}
                 handleAnswerSelected={handleAnswerSelected}
                 currentAnswerStatus={currentAnswerStatus}
+                currentAnswer={currentAnswer}
               />
             ))}
           </ul>
         </div>
+        <div className="actions">
+          {displayAnswerResponse ? (
+            <>
+              <div>
+                The answer was:
+                {` ${currentAnswerStatus}
+                The correct answer is ${formattedAnswer}`}
+              </div>
+              {next ? (
+                <button type="button" onClick={handleNextClick}>
+                  Next question
+                </button>
+              ) : (
+                <button type="button" onClick={handleResultClick}>
+                  Result
+                </button>
+              )}
+            </>
+          ) : null}
+        </div>
       </div>
+      //
     );
   }
 }
 
-QuestionCard.propTypes = {
-  question: PropTypes.object,
-  handleAnswerSelected: PropTypes.func
-};
+// QuestionCard.propTypes = {
+//   question: PropTypes.object,
+//   handleAnswerSelected: PropTypes.func.isRequired,
+//   currentAnswerStatus: PropTypes.string,
+//   score: PropTypes.number
+// };
 
-QuestionCard.defaultProptypes = {
-  question: null
-};
+// QuestionCard.defaultProps = {
+//   question: 0,
+//   currentAnswerStatus: '',
+//   score: 0
+// };
+
+export default QuestionCard;
