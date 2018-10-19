@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class AnswerOption extends Component {
-  constructor(props) {
-    super(props);
-    // if (props.currentAnswerStatus === '') {
-    //   this.state = {
-    //     checked: false
-    //   };
-    // }
-  }
-
   handleRadioChange = () => {
     this.setState({ checked: true });
   };

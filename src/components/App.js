@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
 import '../styles/App.css';
 import loadedQuestions from '../questions.json';
 import QuestionCard from './QuestionCard';
@@ -25,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://opentdb.com/api.php?amount=10&category=18')
+    fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy')
       .then(response => response.json())
       .then(data => this.setState({ questions: data.results }, this.modifyQuestion));
   }
@@ -45,8 +44,6 @@ class App extends Component {
 
   handleNextClick = () => {
     const { currentQuestionIndex } = this.state;
-    console.log('currentQuestionIndex: ', currentQuestionIndex);
-    console.log('Next was clicked');
     this.setState(
       {
         currentQuestionIndex: currentQuestionIndex + 1,
