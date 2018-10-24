@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import '../styles/App.css';
-import loadedQuestions from '../questions.json';
+import { Provider } from 'react-redux';
+import store from '../store';
+import {
+  setCurrentAnswer,
+  setCurrentAnswerStatus,
+  setDisplayAnswerResponse,
+  setScore
+} from '../actionCreators';
 import QuestionCard from './QuestionCard';
 import ResultCard from './ResultCard';
+import loadedQuestions from '../questions.json';
+import '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      questions: [],
       currentQuestionIndex: 0,
-      wrongAnswers: [],
-      displayAnswerResponse: false,
-      score: 0,
-      currentAnswerStatus: '',
       finished: false,
-      currentAnswer: '',
-      options: [],
       formattedQuestion: '',
-      formattedAnswer: 'bu'
+      formattedAnswer: '',
+      options: [],
+      questions: [],
+      wrongAnswers: []
     };
+    this.store = store;
   }
 
   componentDidMount() {
@@ -44,11 +49,10 @@ class App extends Component {
 
   handleNextClick = () => {
     const { currentQuestionIndex } = this.state;
+    this.store.dispatch(setCurrentAnswerStatus(''), setDisplayAnswerResponse(false));
     this.setState(
       {
-        currentQuestionIndex: currentQuestionIndex + 1,
-        currentAnswerStatus: '',
-        displayAnswerResponse: false
+        currentQuestionIndex: currentQuestionIndex + 1
       },
       this.modifyQuestion
     );
@@ -61,13 +65,12 @@ class App extends Component {
   };
 
   handleAnswerSelected = option => {
-    const { questions, currentQuestionIndex, wrongAnswers, score } = this.state;
+    const { questions, currentQuestionIndex, wrongAnswers } = this.state;
+    const { score } = this.store.getState();
     const correctAnswer = this.unescapeHtml(questions[currentQuestionIndex].correct_answer);
     if (option === correctAnswer) {
-      this.setState({
-        score: score + 1,
-        currentAnswerStatus: 'right'
-      });
+      this.store.dispatch(setScore(score + 1));
+      this.store.dispatch(setCurrentAnswerStatus('right'));
     } else {
       this.setState({
         wrongAnswers: [
@@ -77,14 +80,11 @@ class App extends Component {
             yourAnswer: option,
             correctAnswer: questions[currentQuestionIndex].answer
           }
-        ],
-        currentAnswerStatus: 'wrong'
+        ]
       });
+      this.store.dispatch(setCurrentAnswerStatus('wrong'));
     }
-    this.setState({
-      displayAnswerResponse: true,
-      currentAnswer: option
-    });
+    this.store.dispatch(setDisplayAnswerResponse(true), setCurrentAnswer(option));
   };
 
   modifyQuestion() {
@@ -105,50 +105,44 @@ class App extends Component {
 
   render() {
     const {
-      finished,
-      questions,
       currentQuestionIndex,
-      displayAnswerResponse,
-      currentAnswerStatus,
-      score,
-      wrongAnswers,
-      currentAnswer,
-      options,
+      finished,
+      formattedAnswer,
       formattedQuestion,
-      formattedAnswer
+      options,
+      questions,
+      wrongAnswers
     } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header">A Quiz in ReactJS</header>
-        <div>
-          {questions.length > 0 ? (
-            <>
-              {!finished ? (
-                <QuestionCard
-                  question={questions[currentQuestionIndex]}
-                  handleAnswerSelected={this.handleAnswerSelected}
-                  currentAnswerStatus={currentAnswerStatus}
-                  score={score}
-                  displayAnswerResponse={displayAnswerResponse}
-                  next={currentQuestionIndex < questions.length - 1}
-                  handleNextClick={this.handleNextClick}
-                  handleResultClick={this.handleResultClick}
-                  currentAnswer={currentAnswer}
-                  options={options}
-                  formattedQuestion={formattedQuestion}
-                  formattedAnswer={formattedAnswer}
-                  questionNumber={currentQuestionIndex + 1}
-                />
-              ) : (
-                <ResultCard score={score} wrongAnswers={wrongAnswers} />
-              )}
-            </>
-          ) : (
-            <span>Loading...</span>
-          )}
+      <Provider store={this.store}>
+        <div className="App">
+          <header className="App-header">A Quiz in ReactJS</header>
+          <div>
+            {questions.length > 0 ? (
+              <>
+                {!finished ? (
+                  <QuestionCard
+                    question={questions[currentQuestionIndex]}
+                    handleAnswerSelected={this.handleAnswerSelected}
+                    next={currentQuestionIndex < questions.length - 1}
+                    handleNextClick={this.handleNextClick}
+                    handleResultClick={this.handleResultClick}
+                    options={options}
+                    formattedQuestion={formattedQuestion}
+                    formattedAnswer={formattedAnswer}
+                    questionNumber={currentQuestionIndex + 1}
+                  />
+                ) : (
+                  <ResultCard wrongAnswers={wrongAnswers} />
+                )}
+              </>
+            ) : (
+              <span>Loading...</span>
+            )}
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 }

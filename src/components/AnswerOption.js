@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class AnswerOption extends Component {
@@ -7,7 +8,13 @@ class AnswerOption extends Component {
   };
 
   render() {
-    const { option, handleAnswerSelected, currentAnswerStatus, currentAnswer } = this.props;
+    const {
+      option,
+      handleAnswerSelected,
+      currentAnswerStatus,
+      currentAnswer,
+      formattedAnswer
+    } = this.props;
     return (
       <li className={`answerOption ${currentAnswerStatus !== '' ? 'gray' : null}`}>
         <input
@@ -35,4 +42,9 @@ AnswerOption.propTypes = {
   option: PropTypes.string.isRequired
 };
 
-export default AnswerOption;
+const mapStateToProps = state => ({
+  currentAnswer: state.currentAnswer,
+  currentAnswerStatus: state.currentAnswerStatus
+});
+
+export default connect(mapStateToProps)(AnswerOption);

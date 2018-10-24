@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AnswerOption from './AnswerOption';
 
@@ -7,7 +8,6 @@ const QuestionCard = props => {
     score,
     handleAnswerSelected,
     currentAnswerStatus,
-    currentAnswer,
     displayAnswerResponse,
     next,
     handleNextClick,
@@ -34,8 +34,7 @@ const QuestionCard = props => {
               key={option}
               option={option}
               handleAnswerSelected={handleAnswerSelected}
-              currentAnswerStatus={currentAnswerStatus}
-              currentAnswer={currentAnswer}
+              formattedAnswer={formattedAnswer}
             />
           ))}
         </ul>
@@ -68,7 +67,6 @@ QuestionCard.propTypes = {
   handleAnswerSelected: PropTypes.func.isRequired,
   currentAnswerStatus: PropTypes.string,
   score: PropTypes.number,
-  currentAnswer: PropTypes.string,
   displayAnswerResponse: PropTypes.bool,
   next: PropTypes.bool,
   handleNextClick: PropTypes.func.isRequired,
@@ -81,7 +79,6 @@ QuestionCard.propTypes = {
 
 QuestionCard.defaultProps = {
   currentAnswerStatus: '',
-  currentAnswer: '',
   displayAnswerResponse: false,
   next: false,
   score: 0,
@@ -91,4 +88,11 @@ QuestionCard.defaultProps = {
   questionNumber: 1
 };
 
-export default QuestionCard;
+const mapStateToProps = state => ({
+  answerResponse: state.displayAnswerResponse,
+  currentAnswerStatus: state.currentAnswerStatus,
+  displayAnswerResponse: state.displayAnswerResponse,
+  score: state.score
+});
+
+export default connect(mapStateToProps)(QuestionCard);
