@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  setScore,
-  setCurrentAnswerStatus,
   setCurrentAnswer,
+  setCurrentAnswerStatus,
   setCurrentQuestionIndex,
   setDisplayAnswerResponse,
-  setFinished
+  setGameOver,
+  setScore
 } from '../actionCreators';
 import AnswerOption from './AnswerOption';
 import unescapeHTML from '../helpers/unescapeHTML';
@@ -159,7 +159,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setCurrentQuestionIndex(index + 1));
   },
   handleShowResult() {
-    dispatch(setFinished(true));
+    dispatch(setGameOver(true));
   }
 });
 

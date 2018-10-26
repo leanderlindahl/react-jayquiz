@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setCurrentQuestionIndex, setFinished } from '../actionCreators';
+import {
+  fetchQuestions,
+  setCurrentAnswerStatus,
+  setCurrentQuestionIndex,
+  setGameOver
+} from '../actionCreators';
 
 const ResultCard = props => {
   const { score, wrongAnswers, handleStartOverClick } = props;
@@ -40,7 +45,9 @@ const mapStateToProps = state => ({ score: state.score });
 const mapDispatchToProps = dispatch => ({
   handleStartOverClick() {
     dispatch(setCurrentQuestionIndex(0));
-    dispatch(setFinished(false));
+    dispatch(setGameOver(false));
+    dispatch(setCurrentAnswerStatus(''));
+    dispatch(fetchQuestions(18));
   }
 });
 

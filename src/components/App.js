@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import { fetchQuestions } from '../actionCreators';
 import QuestionCard from './QuestionCard';
 import ResultCard from './ResultCard';
-import loadedQuestions from '../questions.json';
 import '../styles/App.css';
 
 class App extends Component {
@@ -22,34 +21,16 @@ class App extends Component {
     handleFetchQuestions();
   }
 
-  // loadQuestionsFromDisk = () => {
-  //   this.setState({ questions: loadedQuestions.results });
-  // };
-
-  // loadQuestionsFromAPI = () => {
-  //   fetch('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy')
-  //     .then(response => {
-  //       if (response.status !== 200) {
-  //         // load from disk
-  //         this.loadQuestionsFromDisk();
-  //       } else {
-  //         return response;
-  //       }
-  //     })
-  //     .then(response => response.json())
-  //     .then(data => this.setState({ questions: data.results }));
-  // };
-
   render() {
     const { wrongAnswers } = this.state;
-    const { questions, currentQuestionIndex, finished } = this.props;
+    const { questions, currentQuestionIndex, gameOver } = this.props;
     return (
       <div className="App">
         <header className="App-header">A Quiz in ReactJS</header>
         <div>
           {questions.length > 0 ? (
             <>
-              {!finished ? (
+              {!gameOver ? (
                 <QuestionCard
                   next={currentQuestionIndex < questions.length - 1}
                   question={questions[currentQuestionIndex]}
@@ -70,25 +51,25 @@ class App extends Component {
 
 App.propTypes = {
   currentQuestionIndex: PropTypes.number,
-  finished: PropTypes.bool,
+  gameOver: PropTypes.bool,
   handleFetchQuestions: PropTypes.func.isRequired,
   questions: PropTypes.array
 };
 
 App.defaultProps = {
   currentQuestionIndex: 0,
-  finished: false,
+  gameOver: false,
   questions: []
 };
 
 const mapDispatchToProps = dispatch => ({
   handleFetchQuestions() {
-    dispatch(fetchQuestions(18));
+    dispatch(fetchQuestions(18)); // 18 = "Science: Computers"
   }
 });
 const mapStateToProps = state => ({
   currentQuestionIndex: state.currentQuestionIndex,
-  finished: state.finished,
+  gameOver: state.gameOver,
   score: state.score,
   questions: state.questions.items
 });

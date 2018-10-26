@@ -8,7 +8,7 @@ import {
   SET_CURRENT_ANSWER_STATUS,
   SET_CURRENT_QUESTION_INDEX,
   SET_DISPLAY_ANSWER_RESPONSE,
-  SET_FINISHED,
+  SET_GAME_OVER,
   SET_SCORE
 } from './actions';
 
@@ -77,8 +77,8 @@ const displayAnswerResponse = (state = false, action) => {
   }
   return state;
 };
-const finished = (state = false, action) => {
-  if (action.type === SET_FINISHED) {
+const gameOver = (state = false, action) => {
+  if (action.type === SET_GAME_OVER) {
     return action.payload;
   }
   return state;
@@ -95,7 +95,7 @@ const rootReducer = combineReducers({
   currentAnswerStatus,
   currentQuestionIndex,
   displayAnswerResponse,
-  finished,
+  gameOver,
   selectedCategory,
   score,
   questions
