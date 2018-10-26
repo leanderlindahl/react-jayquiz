@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import unescapeHTML from '../helpers/unescapeHTML';
 
 class AnswerOption extends Component {
   handleRadioChange = () => {
@@ -8,13 +9,7 @@ class AnswerOption extends Component {
   };
 
   render() {
-    const {
-      option,
-      handleAnswerSelected,
-      currentAnswerStatus,
-      currentAnswer,
-      formattedAnswer
-    } = this.props;
+    const { option, onAnswerSelected, currentAnswerStatus, currentAnswer } = this.props;
     return (
       <li className={`answerOption ${currentAnswerStatus !== '' ? 'gray' : null}`}>
         <input
@@ -22,14 +17,14 @@ class AnswerOption extends Component {
           className="radio-custom-button"
           name="radio-group"
           id={option}
-          value={option}
-          onClick={evt => handleAnswerSelected(evt.target.value)}
+          value={unescapeHTML(option)}
+          onClick={onAnswerSelected}
           disabled={currentAnswerStatus}
           checked={currentAnswer === option}
           onChange={this.handleRadioChange}
         />
         <label htmlFor={option} className="radio-custom-label">
-          {option}
+          {unescapeHTML(option)}
         </label>
       </li>
     );
@@ -37,9 +32,14 @@ class AnswerOption extends Component {
 }
 
 AnswerOption.propTypes = {
+  currentAnswer: PropTypes.string,
   currentAnswerStatus: PropTypes.string.isRequired,
-  handleAnswerSelected: PropTypes.func.isRequired,
+  onAnswerSelected: PropTypes.func.isRequired,
   option: PropTypes.string.isRequired
+};
+
+AnswerOption.defaultProps = {
+  currentAnswer: ''
 };
 
 const mapStateToProps = state => ({

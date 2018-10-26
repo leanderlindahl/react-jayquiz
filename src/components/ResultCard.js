@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setCurrentQuestionIndex, setFinished } from '../actionCreators';
 
 const ResultCard = props => {
-  const { score, wrongAnswers } = props;
+  const { score, wrongAnswers, handleStartOverClick } = props;
 
   return (
     <div>
@@ -17,12 +18,15 @@ const ResultCard = props => {
         {` ${wrongAnswers.length} `}
         wrong answers.
       </p>
-      <button>Start Over</button>
+      <button type="button" onClick={handleStartOverClick}>
+        Start Over
+      </button>
     </div>
   );
 };
 
 ResultCard.propTypes = {
+  handleStartOverClick: PropTypes.func.isRequired,
   score: PropTypes.number,
   wrongAnswers: PropTypes.array
 };
@@ -33,5 +37,14 @@ ResultCard.defaultProps = {
 };
 
 const mapStateToProps = state => ({ score: state.score });
+const mapDispatchToProps = dispatch => ({
+  handleStartOverClick() {
+    dispatch(setCurrentQuestionIndex(0));
+    dispatch(setFinished(false));
+  }
+});
 
-export default connect(mapStateToProps)(ResultCard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ResultCard);
