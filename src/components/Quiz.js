@@ -149,7 +149,7 @@ class Quiz extends Component {
   }
 }
 
-QuestionCard.propTypes = {
+Quiz.propTypes = {
   currentAnswerStatus: PropTypes.string,
   currentQuestionIndex: PropTypes.number,
   displayAnswerResponse: PropTypes.bool,
@@ -163,7 +163,7 @@ QuestionCard.propTypes = {
   questionNumber: PropTypes.number
 };
 
-QuestionCard.defaultProps = {
+Quiz.defaultProps = {
   currentAnswerStatus: '',
   currentQuestionIndex: 0,
   displayAnswerResponse: false,
