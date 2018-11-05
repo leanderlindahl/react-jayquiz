@@ -4,16 +4,27 @@ exports[`QuestionCard renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <QuestionCard
-    currentAnswer=""
     currentAnswerStatus=""
+    currentQuestionIndex={0}
     displayAnswerResponse={false}
-    formattedAnswer=""
-    formattedQuestion=""
-    handleAnswerSelected={[MockFunction]}
-    handleNextClick={[MockFunction]}
-    handleResultClick={[MockFunction]}
+    handleAnswerState={[MockFunction]}
+    handleShowNext={[MockFunction]}
+    handleShowResult={[MockFunction]}
     next={false}
-    options={Array []}
+    question={
+      Object {
+        "category": "Science: Computers",
+        "correct_answer": "8",
+        "difficulty": "easy",
+        "incorrect_answers": Array [
+          "1",
+          "2",
+          "64",
+        ],
+        "question": "What amount of bits commonly equals one byte?",
+        "type": "multiple",
+      }
+    }
     questionNumber={1}
     score={0}
   />,
@@ -42,15 +53,33 @@ ShallowWrapper {
         <div
           className="question"
         >
-          
+          What amount of bits commonly equals one byte?
         </div>,
         <div
           className="answers"
         >
           <ul
             className="options"
-          />
+          >
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="64"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="2"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="8"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="1"
+            />
+          </ul>
         </div>,
+        "======================================================",
         <div
           className="actions"
         />,
@@ -86,11 +115,11 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": "",
+          "children": "What amount of bits commonly equals one byte?",
           "className": "question",
         },
         "ref": null,
-        "rendered": "",
+        "rendered": "What amount of bits commonly equals one byte?",
         "type": "div",
       },
       Object {
@@ -100,7 +129,24 @@ ShallowWrapper {
         "props": Object {
           "children": <ul
             className="options"
-          />,
+          >
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="64"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="2"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="8"
+            />
+            <Connect(AnswerOption)
+              onAnswerSelected={[Function]}
+              option="1"
+            />
+          </ul>,
           "className": "answers",
         },
         "ref": null,
@@ -109,15 +155,82 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": Array [],
+            "children": Array [
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="64"
+              />,
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="2"
+              />,
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="8"
+              />,
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="1"
+              />,
+            ],
             "className": "options",
           },
           "ref": null,
-          "rendered": Array [],
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "64",
+              "nodeType": "class",
+              "props": Object {
+                "onAnswerSelected": [Function],
+                "option": "64",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "2",
+              "nodeType": "class",
+              "props": Object {
+                "onAnswerSelected": [Function],
+                "option": "2",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "8",
+              "nodeType": "class",
+              "props": Object {
+                "onAnswerSelected": [Function],
+                "option": "8",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "1",
+              "nodeType": "class",
+              "props": Object {
+                "onAnswerSelected": [Function],
+                "option": "1",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
           "type": "ul",
         },
         "type": "div",
       },
+      "======================================================",
       Object {
         "instance": null,
         "key": undefined,
@@ -151,15 +264,33 @@ ShallowWrapper {
           <div
             className="question"
           >
-            
+            What amount of bits commonly equals one byte?
           </div>,
           <div
             className="answers"
           >
             <ul
               className="options"
-            />
+            >
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="64"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="2"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="8"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="1"
+              />
+            </ul>
           </div>,
+          "======================================================",
           <div
             className="actions"
           />,
@@ -195,11 +326,11 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "children": "",
+            "children": "What amount of bits commonly equals one byte?",
             "className": "question",
           },
           "ref": null,
-          "rendered": "",
+          "rendered": "What amount of bits commonly equals one byte?",
           "type": "div",
         },
         Object {
@@ -209,7 +340,24 @@ ShallowWrapper {
           "props": Object {
             "children": <ul
               className="options"
-            />,
+            >
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="64"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="2"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="8"
+              />
+              <Connect(AnswerOption)
+                onAnswerSelected={[Function]}
+                option="1"
+              />
+            </ul>,
             "className": "answers",
           },
           "ref": null,
@@ -218,15 +366,82 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": Array [],
+              "children": Array [
+                <Connect(AnswerOption)
+                  onAnswerSelected={[Function]}
+                  option="64"
+                />,
+                <Connect(AnswerOption)
+                  onAnswerSelected={[Function]}
+                  option="2"
+                />,
+                <Connect(AnswerOption)
+                  onAnswerSelected={[Function]}
+                  option="8"
+                />,
+                <Connect(AnswerOption)
+                  onAnswerSelected={[Function]}
+                  option="1"
+                />,
+              ],
               "className": "options",
             },
             "ref": null,
-            "rendered": Array [],
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "64",
+                "nodeType": "class",
+                "props": Object {
+                  "onAnswerSelected": [Function],
+                  "option": "64",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "2",
+                "nodeType": "class",
+                "props": Object {
+                  "onAnswerSelected": [Function],
+                  "option": "2",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "8",
+                "nodeType": "class",
+                "props": Object {
+                  "onAnswerSelected": [Function],
+                  "option": "8",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "1",
+                "nodeType": "class",
+                "props": Object {
+                  "onAnswerSelected": [Function],
+                  "option": "1",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
             "type": "ul",
           },
           "type": "div",
         },
+        "======================================================",
         Object {
           "instance": null,
           "key": undefined,

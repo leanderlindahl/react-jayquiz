@@ -1,15 +1,18 @@
 import fetch from 'cross-fetch';
 import {
-  SELECT_CATEGORY,
   INVALIDATE_CATEGORY,
   RECEIVE_QUESTIONS,
   REQUEST_QUESTIONS,
-  SET_CURRENT_ANSWER,
+  SELECT_CATEGORY,
+  // SET_CURRENT_ANSWER,
   SET_CURRENT_ANSWER_STATUS,
   SET_CURRENT_QUESTION_INDEX,
   SET_DISPLAY_ANSWER_RESPONSE,
   SET_GAME_OVER,
-  SET_SCORE
+  SET_OPTIONS_DISABLED,
+  SET_OUT_OF_TIME,
+  SET_SCORE,
+  SET_SELECTED_OPTION
 } from './actions';
 
 export function invalidateCategory(category) {
@@ -40,9 +43,9 @@ export function fetchQuestions(category) {
       .then(json => dispatch(receiveQuestions(category, json)));
   };
 }
-export function setCurrentAnswer(currentAnswer) {
-  return { type: SET_CURRENT_ANSWER, payload: currentAnswer };
-}
+// export function setCurrentAnswer(currentAnswer) {
+//   return { type: SET_CURRENT_ANSWER, payload: currentAnswer };
+// }
 export function setCurrentAnswerStatus(value) {
   return { type: SET_CURRENT_ANSWER_STATUS, payload: value };
 }
@@ -55,6 +58,15 @@ export function setDisplayAnswerResponse(value) {
 export function setGameOver(value) {
   return { type: SET_GAME_OVER, payload: value };
 }
+export function setOptionsDisabled(state) {
+  return { type: SET_OPTIONS_DISABLED, payload: state };
+}
+export function setOutOfTime(state) {
+  return { type: SET_OUT_OF_TIME, payload: state };
+}
 export function setScore(score) {
   return { type: SET_SCORE, payload: score };
+}
+export function setSelectedOption(selected) {
+  return { type: SET_SELECTED_OPTION, payload: selected };
 }

@@ -15,7 +15,7 @@ import {
 } from '../actionCreators';
 import unescapeHTML from '../helpers/unescapeHTML';
 
-class QuestionCard extends Component {
+class Quiz extends Component {
   constructor(props) {
     super(props);
 
@@ -199,8 +199,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setDisplayAnswerResponse(true));
   }
 });
-export const Unwrapped = QuestionCard;
+export const Unwrapped = Quiz;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(QuestionCard);
+)(Quiz);

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setCurrentAnswer 1`] = `
+Object {
+  "payload": "8",
+  "type": "SET_CURRENT_ANSWER",
+}
+`;

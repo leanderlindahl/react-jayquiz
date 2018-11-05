@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button, Row, Col } from 'antd';
 import {
   fetchQuestions,
   setCurrentAnswerStatus,
   setCurrentQuestionIndex,
-  setGameOver
+  setDisplayAnswerResponse,
+  setGameOver,
+  setOutOfTime
 } from '../actionCreators';
 
 const ResultCard = props => {
@@ -13,19 +16,23 @@ const ResultCard = props => {
 
   return (
     <div>
-      <h1>Results</h1>
-      <h3>
-        Your score was:
-        {` ${score}`}
-      </h3>
-      <p>
-        You had
-        {` ${wrongAnswers.length} `}
-        wrong answers.
-      </p>
-      <button type="button" onClick={handleStartOverClick}>
-        Start Over
-      </button>
+      <Row>
+        <Col span={24}>
+          <h1>Results</h1>
+          <h3>
+            Your score was:
+            {` ${score}`}
+          </h3>
+          <p>
+            You had
+            {` ${wrongAnswers.length} `}
+            wrong answers.
+          </p>
+          <Button type="primary" onClick={handleStartOverClick}>
+            Start Over
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 };
@@ -48,6 +55,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setGameOver(false));
     dispatch(setCurrentAnswerStatus(''));
     dispatch(fetchQuestions(18));
+    dispatch(setDisplayAnswerResponse(false));
+    dispatch(setOutOfTime(false));
   }
 });
 

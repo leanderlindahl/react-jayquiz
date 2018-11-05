@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Radio, Input } from 'antd';
 import unescapeHTML from '../helpers/unescapeHTML';
+
+const RadioGroup = Radio.Group;
 
 class AnswerOption extends Component {
   handleRadioChange = () => {
@@ -11,15 +14,12 @@ class AnswerOption extends Component {
   render() {
     const { option, onAnswerSelected, currentAnswerStatus, currentAnswer } = this.props;
     return (
-      <li className={`answerOption ${currentAnswerStatus !== '' ? 'gray' : null}`}>
-        <input
-          type="radio"
-          className="radio-custom-button"
-          name="radio-group"
+      <li className={`answerOption ${currentAnswerStatus !== '' ? 'xgray' : null}`}>
+        <Radio
           id={option}
           value={unescapeHTML(option)}
           onClick={onAnswerSelected}
-          disabled={currentAnswerStatus}
+          disabled={!currentAnswerStatus === ''}
           checked={currentAnswer === option}
           onChange={this.handleRadioChange}
         />
