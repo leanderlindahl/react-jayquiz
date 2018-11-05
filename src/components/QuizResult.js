@@ -11,7 +11,7 @@ import {
   setOutOfTime
 } from '../actionCreators';
 
-const ResultCard = props => {
+const QuizResult = props => {
   const { score, wrongAnswers, handleStartOverClick } = props;
 
   return (
@@ -37,13 +37,13 @@ const ResultCard = props => {
   );
 };
 
-ResultCard.propTypes = {
+QuizResult.propTypes = {
   handleStartOverClick: PropTypes.func.isRequired,
   score: PropTypes.number,
   wrongAnswers: PropTypes.array
 };
 
-ResultCard.defaultProps = {
+QuizResult.defaultProps = {
   score: 0,
   wrongAnswers: []
 };
@@ -63,4 +63,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResultCard);
+)(QuizResult);

@@ -6,7 +6,7 @@ import { Layout, Col, Row } from 'antd';
 import shuffleArray from '../helpers/shuffleArray';
 import { fetchQuestions } from '../actionCreators';
 import Quiz from './Quiz';
-import ResultCard from './ResultCard';
+import QuizResult from './QuizResult';
 import '../styles/App.css';
 
 const LogoDiv = styled.div`
@@ -94,7 +94,7 @@ class App extends Component {
                       totalNumberOfQuestions={questions.length}
                     />
                   ) : (
-                    <ResultCard wrongAnswers={wrongAnswers} />
+                    <QuizResult wrongAnswers={wrongAnswers} />
                   )}
                 </>
               ) : (
