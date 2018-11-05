@@ -20,13 +20,14 @@ class Quiz extends Component {
     super(props);
 
     this.state = {
-      clickedTen: false,
-      disabled: false,
-      selected: 1,
       addSecondsAmount: 0,
-      addSecondsEnabled: false
+      addSecondsEnabled: false,
+      clickedTen: false,
+      disabledOptions: [],
+      fiftyFifty: false
     };
 
+    this.handleFiftyFifty = this.handleFiftyFifty.bind(this);
     this.handlePlusTen = this.handlePlusTen.bind(this);
   }
 
@@ -46,10 +47,6 @@ class Quiz extends Component {
     const answer = unescapeHTML(question.correct_answer);
     const selectedOption = unescapeHTML(event.target.value);
 
-    this.setState({
-      disabled: true
-    });
-
     if (selectedOption === answer) {
       handleAnswerState(score + 1, 'right', selectedOption, true);
     } else {
@@ -57,13 +54,38 @@ class Quiz extends Component {
     }
   };
 
+  handleFiftyFifty(event) {
+    event.preventDefault();
+    const { options, outOfTime, question } = this.props;
+    if (!outOfTime) {
+      event.target.disabled = true;
+      let { disabledOptions } = this.state;
+
+      const numOptions = options.length;
+      const numOptionsToRemove = (numOptions / 2) % numOptions;
+      const wrongAnswers = question.incorrect_answers;
+
+      for (let i = 0; i < numOptionsToRemove; i++) {
+        disabledOptions = [...disabledOptions, wrongAnswers[i]];
+      }
+      this.setState({
+        disabledOptions,
+        fiftyFifty: true
+      });
+    }
+  }
+
   handlePlusTen(event) {
-    event.target.disabled = true;
-    this.setState({
-      clickedTen: true,
-      addSecondsAmount: 10,
-      addSecondsEnabled: true
-    });
+    event.preventDefault();
+    const { outOfTime } = this.props;
+    if (!outOfTime) {
+      event.target.disabled = true;
+      this.setState({
+        clickedTen: true,
+        addSecondsAmount: 10,
+        addSecondsEnabled: true
+      });
+    }
   }
 
   render() {
@@ -74,14 +96,13 @@ class Quiz extends Component {
       next,
       options,
       optionsDisabled,
-      outOfTime,
       question,
       questionNumber,
       selectedOption,
       totalNumberOfQuestions
     } = this.props;
 
-    const { addSecondsAmount, clickedTen } = this.state;
+    const { addSecondsAmount, clickedTen, disabledOptions, fiftyFifty } = this.state;
 
     const RadioGroup = Radio.Group;
 
@@ -102,9 +123,14 @@ class Quiz extends Component {
               running={!optionsDisabled}
             />
           </Col>
-          <Col span={12}>
-            <Button type="primary" onClick={this.handlePlusTen} disabled={outOfTime && !clickedTen}>
+          <Col span={6}>
+            <Button type="primary" onClick={this.handlePlusTen} disabled={clickedTen}>
               +10
+            </Button>
+          </Col>
+          <Col span={6}>
+            <Button type="primary" onClick={this.handleFiftyFifty} disabled={fiftyFifty}>
+              50/50
             </Button>
           </Col>
         </Row>
@@ -127,7 +153,12 @@ class Quiz extends Component {
                 disabled={optionsDisabled}
               >
                 {options.map(option => (
-                  <Radio value={option} style={radioStyle} key={option}>
+                  <Radio
+                    value={option}
+                    style={radioStyle}
+                    key={option}
+                    disabled={disabledOptions.indexOf(option) > -1}
+                  >
                     {unescapeHTML(option)}
                   </Radio>
                 ))}
@@ -158,6 +189,7 @@ Quiz.propTypes = {
   handleShowResult: PropTypes.func.isRequired,
   next: PropTypes.bool,
   options: PropTypes.array,
+  outOfTime: PropTypes.bool,
   score: PropTypes.number,
   question: PropTypes.object.isRequired,
   questionNumber: PropTypes.number

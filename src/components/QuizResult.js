@@ -8,7 +8,9 @@ import {
   setCurrentQuestionIndex,
   setDisplayAnswerResponse,
   setGameOver,
-  setOutOfTime
+  setOptionsDisabled,
+  setOutOfTime,
+  setScore
 } from '../actionCreators';
 
 const QuizResult = props => {
@@ -56,7 +58,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setCurrentAnswerStatus(''));
     dispatch(fetchQuestions(18));
     dispatch(setDisplayAnswerResponse(false));
+    dispatch(setOptionsDisabled(false));
     dispatch(setOutOfTime(false));
+    dispatch(setScore(0));
   }
 });
 
