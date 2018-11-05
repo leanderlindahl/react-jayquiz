@@ -11,7 +11,8 @@ import {
   setOptionsDisabled,
   setOutOfTime,
   setScore,
-  setSelectedOption
+  setSelectedOption,
+  setUsedQuestions
 } from '../actionCreators';
 import unescapeHTML from '../helpers/unescapeHTML';
 
@@ -29,6 +30,7 @@ class Quiz extends Component {
 
     this.handleFiftyFifty = this.handleFiftyFifty.bind(this);
     this.handlePlusTen = this.handlePlusTen.bind(this);
+    this.handleOutOfTime = this.handleOutOfTime.bind(this);
   }
 
   componentDidUpdate(prevState) {
@@ -43,14 +45,15 @@ class Quiz extends Component {
   }
 
   handleSelectedAnswer = event => {
-    const { handleAnswerState, score, question } = this.props;
+    const { handleAnswerState, score, question, usedQuestions } = this.props;
     const answer = unescapeHTML(question.correct_answer);
     const selectedOption = unescapeHTML(event.target.value);
+    const addUsedQuestions = [...usedQuestions, question.question];
 
     if (selectedOption === answer) {
-      handleAnswerState(score + 1, 'right', selectedOption, true);
+      handleAnswerState(score + 1, 'right', selectedOption, true, addUsedQuestions);
     } else {
-      handleAnswerState(score, 'wrong', selectedOption, true);
+      handleAnswerState(score, 'wrong', selectedOption, true, addUsedQuestions);
     }
   };
 
@@ -88,11 +91,16 @@ class Quiz extends Component {
     }
   }
 
+  handleOutOfTime() {
+    const { question, usedQuestions, submitOutOfTime } = this.props;
+    const addUsedQuestions = [...usedQuestions, question.question];
+    submitOutOfTime(addUsedQuestions);
+  }
+
   render() {
     const {
       currentQuestionIndex,
       displayAnswerResponse,
-      handleOutOfTime,
       next,
       options,
       optionsDisabled,
@@ -118,7 +126,7 @@ class Quiz extends Component {
           <Col span={12}>
             <Timer
               addSecondsAmount={addSecondsAmount}
-              onComplete={handleOutOfTime}
+              onComplete={this.handleOutOfTime}
               reset={currentQuestionIndex.toString()}
               running={!optionsDisabled}
             />
@@ -185,7 +193,6 @@ Quiz.propTypes = {
   currentQuestionIndex: PropTypes.number,
   displayAnswerResponse: PropTypes.bool,
   handleAnswerState: PropTypes.func.isRequired,
-  handleOutOfTime: PropTypes.func.isRequired,
   handleShowResult: PropTypes.func.isRequired,
   next: PropTypes.bool,
   options: PropTypes.array,
@@ -210,25 +217,28 @@ const mapStateToProps = state => ({
   optionsDisabled: state.optionsDisabled,
   outOfTime: state.outOfTime,
   score: state.score,
-  selectedOption: state.selectedOption
+  selectedOption: state.selectedOption,
+  usedQuestions: state.usedQuestions
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleAnswerState(score, answerStatus, selectedOption, optionsDisabled) {
+  handleAnswerState(score, answerStatus, selectedOption, optionsDisabled, usedQuestions) {
     dispatch(setSelectedOption(selectedOption));
     dispatch(setScore(score));
     dispatch(setCurrentAnswerStatus(answerStatus));
     dispatch(setDisplayAnswerResponse(true));
     dispatch(setOptionsDisabled(optionsDisabled));
     dispatch(setOutOfTime(true));
+    dispatch(setUsedQuestions(usedQuestions));
   },
   handleShowResult() {
     dispatch(setGameOver(true));
   },
-  handleOutOfTime() {
+  submitOutOfTime(usedQuestions) {
     dispatch(setOutOfTime(true));
     dispatch(setOptionsDisabled(true));
     dispatch(setDisplayAnswerResponse(true));
+    dispatch(setUsedQuestions(usedQuestions));
   }
 });
 export const Unwrapped = Quiz;

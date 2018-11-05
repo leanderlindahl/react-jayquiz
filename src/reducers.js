@@ -4,15 +4,17 @@ import {
   RECEIVE_QUESTIONS,
   REQUEST_QUESTIONS,
   SELECT_CATEGORY,
-  // SET_CURRENT_ANSWER,
   SET_CURRENT_ANSWER_STATUS,
   SET_CURRENT_QUESTION_INDEX,
   SET_DISPLAY_ANSWER_RESPONSE,
   SET_GAME_OVER,
   SET_OPTIONS_DISABLED,
   SET_OUT_OF_TIME,
+  SET_PREPARED_QUESTIONS,
   SET_SCORE,
-  SET_SELECTED_OPTION
+  SET_SELECTED_OPTION,
+  SET_QUESTIONS_PER_ROUND,
+  SET_USED_QUESTIONS
 } from './actions';
 
 const selectedCategory = (state = '18', action) => {
@@ -41,12 +43,6 @@ const questions = (state = { isFetching: false, didInvalidate: false, items: [] 
       return state;
   }
 };
-// const currentAnswer = (state = '', action) => {
-//   if (action.type === SET_CURRENT_ANSWER) {
-//     return action.payload;
-//   }
-//   return state;
-// };
 const currentAnswerStatus = (state = '', action) => {
   if (action.type === SET_CURRENT_ANSWER_STATUS) {
     return action.payload;
@@ -83,6 +79,12 @@ const outOfTime = (state = false, action) => {
   }
   return state;
 };
+const preparedQuestions = (state = [], action) => {
+  if (action.type === SET_PREPARED_QUESTIONS) {
+    return action.payload;
+  }
+  return state;
+};
 const score = (state = 0, action) => {
   if (action.type === SET_SCORE) {
     return action.payload;
@@ -95,19 +97,33 @@ const selectedOption = (state = '', action) => {
   }
   return state;
 };
+const questionsPerRound = (state = 5, action) => {
+  if (action.type === SET_QUESTIONS_PER_ROUND) {
+    return action.payload;
+  }
+  return state;
+};
+const usedQuestions = (state = [], action) => {
+  if (action.type === SET_USED_QUESTIONS) {
+    return action.payload;
+  }
+  return state;
+};
 
 const rootReducer = combineReducers({
-  // currentAnswer,
   currentAnswerStatus,
   currentQuestionIndex,
   displayAnswerResponse,
   gameOver,
   optionsDisabled,
   outOfTime,
+  preparedQuestions,
   selectedCategory,
   score,
   selectedOption,
-  questions
+  questions,
+  questionsPerRound,
+  usedQuestions
 });
 
 export default rootReducer;

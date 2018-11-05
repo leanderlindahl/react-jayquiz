@@ -41,16 +41,22 @@ const QuizResult = props => {
 
 QuizResult.propTypes = {
   handleStartOverClick: PropTypes.func.isRequired,
+  preparedQuestions: PropTypes.array,
   score: PropTypes.number,
   wrongAnswers: PropTypes.array
 };
 
 QuizResult.defaultProps = {
+  preparedQuestions: [],
   score: 0,
   wrongAnswers: []
 };
 
-const mapStateToProps = state => ({ score: state.score });
+const mapStateToProps = state => ({
+  score: state.score,
+  preparedQuestions: state.preparedQuestions
+});
+
 const mapDispatchToProps = dispatch => ({
   handleStartOverClick() {
     dispatch(setCurrentQuestionIndex(0));
