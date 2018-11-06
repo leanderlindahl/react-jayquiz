@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Layout, Col, Row } from 'antd';
@@ -38,8 +38,7 @@ class App extends Component {
 
     this.state = {
       options: [],
-      wrongAnswers: [],
-      questionNumber: 0
+      wrongAnswers: []
     };
   }
 
@@ -64,9 +63,6 @@ class App extends Component {
 
   prepareQuestions() {
     const { handlePreparedQuestions, questions } = this.props;
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = { ...questions[i], answered: false };
-    }
     handlePreparedQuestions(shuffleArray(questions));
     this.prepareSingleQuestion();
   }
@@ -78,32 +74,19 @@ class App extends Component {
       preparedQuestions,
       resetUsedQuestions,
       shuffleQuestions,
-      usedQuestions,
-      questionsPerRound
+      usedQuestions
     } = this.props;
-    const { questionNumber } = this.state;
     if (preparedQuestions.length === usedQuestions.length) {
       if (usedQuestions.length > 0) {
         shuffleQuestions(shuffleArray(preparedQuestions));
       }
       resetUsedQuestions();
     }
-    if (usedQuestions.length % questionsPerRound === 0) {
-      this.setState({
-        questionNumber: 1
-      });
-    } else {
-      this.setState({
-        questionNumber: questionNumber + 1
-      });
-    }
 
     const question = preparedQuestions[currentQuestionIndex];
 
     if (question !== undefined) {
-      console.log('usedQuestions: ', usedQuestions);
       if (usedQuestions.indexOf(question.question) > -1) {
-        console.log('this question has already been used in this game!');
         increaseQuestionIndex(currentQuestionIndex + 1);
       }
       const options = shuffleArray(question.incorrect_answers.concat(question.correct_answer));
@@ -114,12 +97,13 @@ class App extends Component {
   }
 
   render() {
-    const { options, wrongAnswers, questionNumber } = this.state;
+    const { options, wrongAnswers } = this.state;
     const {
       currentQuestionIndex,
       gameOver,
       preparedQuestions,
       score,
+      questionNumber,
       questionsPerRound
     } = this.props;
     const { Content, Header, Footer } = Layout;
@@ -164,25 +148,16 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  currentQuestionIndex: PropTypes.number,
-  gameOver: PropTypes.bool,
-  handleFetchQuestions: PropTypes.func.isRequired,
-  handlePreparedQuestions: PropTypes.func.isRequired,
-  preparedQuestions: PropTypes.array,
-  questions: PropTypes.array,
-  questionsPerRound: PropTypes.number,
-  usedQuestions: PropTypes.array
-};
-
-App.defaultProps = {
-  currentQuestionIndex: 0,
-  gameOver: false,
-  preparedQuestions: [],
-  questions: [],
-  questionsPerRound: 10,
-  usedQuestions: []
-};
+const mapStateToProps = state => ({
+  currentQuestionIndex: state.currentQuestionIndex,
+  gameOver: state.gameOver,
+  preparedQuestions: state.preparedQuestions,
+  score: state.score,
+  questions: state.questions.items,
+  questionNumber: state.questionNumber,
+  questionsPerRound: state.questionsPerRound,
+  usedQuestions: state.usedQuestions
+});
 
 const mapDispatchToProps = dispatch => ({
   handleFetchQuestions() {
@@ -201,15 +176,29 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setPreparedQuestions(questions));
   }
 });
-const mapStateToProps = state => ({
-  currentQuestionIndex: state.currentQuestionIndex,
-  gameOver: state.gameOver,
-  preparedQuestions: state.preparedQuestions,
-  score: state.score,
-  questions: state.questions.items,
-  questionsPerRound: state.questionsPerRound,
-  usedQuestions: state.usedQuestions
-});
+
+App.propTypes = {
+  currentQuestionIndex: PropTypes.number,
+  gameOver: PropTypes.bool,
+  handleFetchQuestions: PropTypes.func.isRequired,
+  handlePreparedQuestions: PropTypes.func.isRequired,
+  increaseQuestionIndex: PropTypes.func.isRequired,
+  preparedQuestions: PropTypes.array,
+  questions: PropTypes.array,
+  questionNumber: PropTypes.number,
+  questionsPerRound: PropTypes.number,
+  usedQuestions: PropTypes.array
+};
+
+App.defaultProps = {
+  currentQuestionIndex: 0,
+  gameOver: false,
+  preparedQuestions: [],
+  questions: [],
+  questionNumber: 1,
+  questionsPerRound: 10,
+  usedQuestions: []
+};
 
 export const Unwrapped = App;
 export default connect(

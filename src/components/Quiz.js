@@ -60,12 +60,11 @@ class Quiz extends Component {
   handleFiftyFifty(event) {
     event.preventDefault();
     const { options, outOfTime, question } = this.props;
-    if (!outOfTime) {
+    if (!outOfTime && options.length > 3) {
       event.target.disabled = true;
       let { disabledOptions } = this.state;
 
-      const numOptions = options.length;
-      const numOptionsToRemove = (numOptions / 2) % numOptions;
+      const numOptionsToRemove = (options.length / 2) % options.length;
       const wrongAnswers = question.incorrect_answers;
 
       for (let i = 0; i < numOptionsToRemove; i++) {

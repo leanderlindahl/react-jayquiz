@@ -9,6 +9,7 @@ import {
   setGameOver,
   setOptionsDisabled,
   setOutOfTime,
+  setQuestionNumber,
   setScore,
   setSelectedOption
 } from '../actionCreators';
@@ -23,12 +24,12 @@ class QuestionResult extends Component {
   }
 
   handleClickNext = () => {
-    const { currentQuestionIndex, handleShowNext } = this.props;
+    const { currentQuestionIndex, handleShowNext, questionNumber } = this.props;
     this.setState({
       disabled: false,
       selected: 1
     });
-    handleShowNext(currentQuestionIndex, false, '1');
+    handleShowNext(currentQuestionIndex, false, '1', questionNumber);
   };
 
   render() {
@@ -84,7 +85,8 @@ QuestionResult.defaultProps = {
 const mapStateToProps = state => ({
   currentAnswerStatus: state.currentAnswerStatus,
   currentQuestionIndex: state.currentQuestionIndex,
-  outOfTime: state.outOfTime
+  outOfTime: state.outOfTime,
+  questionNumber: state.questionNumber
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -94,16 +96,20 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setSelectedOption(selected));
     dispatch(setDisplayAnswerResponse(true));
   },
-  handleShowNext(index, disabled, option) {
+  handleShowNext(index, disabled, option, questionNumber) {
     dispatch(setCurrentAnswerStatus(''));
     dispatch(setOptionsDisabled(disabled));
     dispatch(setOutOfTime(false));
     dispatch(setSelectedOption(option));
     dispatch(setDisplayAnswerResponse(false));
     dispatch(setCurrentQuestionIndex(index + 1));
+    dispatch(setQuestionNumber(questionNumber + 1));
   },
   handleShowResult() {
     dispatch(setGameOver(true));
+  },
+  handleQuestionNumber(number) {
+    dispatch(setQuestionNumber(number));
   }
 });
 

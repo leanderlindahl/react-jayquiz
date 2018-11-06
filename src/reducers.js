@@ -14,7 +14,8 @@ import {
   SET_SCORE,
   SET_SELECTED_OPTION,
   SET_QUESTIONS_PER_ROUND,
-  SET_USED_QUESTIONS
+  SET_USED_QUESTIONS,
+  SET_QUESTION_NUMBER
 } from './actions';
 
 const selectedCategory = (state = '18', action) => {
@@ -97,6 +98,12 @@ const selectedOption = (state = '', action) => {
   }
   return state;
 };
+const questionNumber = (state = 1, action) => {
+  if (action.type === SET_QUESTION_NUMBER) {
+    return action.payload;
+  }
+  return state;
+};
 const questionsPerRound = (state = 5, action) => {
   if (action.type === SET_QUESTIONS_PER_ROUND) {
     return action.payload;
@@ -122,6 +129,7 @@ const rootReducer = combineReducers({
   score,
   selectedOption,
   questions,
+  questionNumber,
   questionsPerRound,
   usedQuestions
 });

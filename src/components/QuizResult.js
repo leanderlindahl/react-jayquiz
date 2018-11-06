@@ -10,7 +10,8 @@ import {
   setGameOver,
   setOptionsDisabled,
   setOutOfTime,
-  setScore
+  setScore,
+  setQuestionNumber
 } from '../actionCreators';
 
 const QuizResult = props => {
@@ -60,6 +61,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleStartOverClick() {
     dispatch(setCurrentQuestionIndex(0));
+    dispatch(setQuestionNumber(1));
     dispatch(setGameOver(false));
     dispatch(setCurrentAnswerStatus(''));
     dispatch(fetchQuestions(18));

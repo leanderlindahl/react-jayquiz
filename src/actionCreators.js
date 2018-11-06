@@ -13,6 +13,7 @@ import {
   SET_PREPARED_QUESTIONS,
   SET_SCORE,
   SET_SELECTED_OPTION,
+  SET_QUESTION_NUMBER,
   SET_QUESTIONS_PER_ROUND,
   SET_USED_QUESTIONS
 } from './actions';
@@ -71,6 +72,9 @@ export function setScore(score) {
 }
 export function setSelectedOption(selected) {
   return { type: SET_SELECTED_OPTION, payload: selected };
+}
+export function setQuestionNumber(questionNumber) {
+  return { type: SET_QUESTION_NUMBER, payload: questionNumber };
 }
 export function setQuestionsPerRound(numberOfQuestions) {
   return { type: SET_QUESTIONS_PER_ROUND, payload: numberOfQuestions };
