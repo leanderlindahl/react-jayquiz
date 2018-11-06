@@ -2,11 +2,12 @@
   "name": "jayquiz",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://leanderlindahl.github.io/jayquiz",
+  "homepage": "http://leanderlindahl.github.io/react-jayquiz",
   "dependencies": {
     "antd": "^3.10.3",
     "axios": "^0.18.0",
     "cross-fetch": "^2.2.2",
+    "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-countdown-now": "^1.3.0",
@@ -22,6 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint ./src",
     "test": "react-scripts test",
