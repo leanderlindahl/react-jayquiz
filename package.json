@@ -2,7 +2,7 @@
   "name": "jayquiz",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://leanderlindahl.github.io/react-jayquiz",
+  "homepage": "https://leanderlindahl.github.io/react-jayquiz/",
   "dependencies": {
     "antd": "^3.10.3",
     "axios": "^0.18.0",
