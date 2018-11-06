@@ -104,7 +104,10 @@ const questionNumber = (state = 1, action) => {
   }
   return state;
 };
-const questionsPerRound = (state = 5, action) => {
+const questionsPerRound = (
+  state = parseInt(process.env.REACT_APP_QUESTIONS_PER_ROUND, 10),
+  action
+) => {
   if (action.type === SET_QUESTIONS_PER_ROUND) {
     return action.payload;
   }

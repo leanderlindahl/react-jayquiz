@@ -38,7 +38,11 @@ export function receiveQuestions(category, json) {
 export function fetchQuestions(category) {
   return dispatch => {
     dispatch(requestQuestions(category));
-    return fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=easy`)
+    return fetch(
+      `https://opentdb.com/api.php?amount=${
+        process.env.REACT_APP_AMOUNT_OF_QUESTIONS
+      }&category=${category}&difficulty=easy`
+    )
       .then(
         response => response.json(),
         error => console.error('An error occured when fetching the questions.') // eslint-disable-line no-console

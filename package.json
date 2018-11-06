@@ -2,6 +2,7 @@
   "name": "jayquiz",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://leanderlindahl.github.io/jayquiz",
   "dependencies": {
     "antd": "^3.10.3",
     "axios": "^0.18.0",
@@ -39,7 +40,6 @@
   "devDependencies": {
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
