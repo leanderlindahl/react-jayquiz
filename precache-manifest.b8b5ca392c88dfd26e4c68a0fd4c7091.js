@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/react-jayquiz/static/js/runtime~main.ca8bdb23.js"
   },
   {
-    "revision": "d8542c6bd7967ac7110e",
-    "url": "/react-jayquiz/static/js/main.d8542c6b.chunk.js"
+    "revision": "d14669b9a54908dacdfe",
+    "url": "/react-jayquiz/static/js/main.d14669b9.chunk.js"
   },
   {
     "revision": "d428d4dbe12d76e2bd00",
     "url": "/react-jayquiz/static/js/1.d428d4db.chunk.js"
   },
   {
-    "revision": "d8542c6bd7967ac7110e",
+    "revision": "d14669b9a54908dacdfe",
     "url": "/react-jayquiz/static/css/main.10004743.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/react-jayquiz/static/css/1.16ee14f5.chunk.css"
   },
   {
-    "revision": "c8530afadc0b79ee99093a4b1fad5e10",
+    "revision": "ccab4121cd0315e119d0192294261999",
     "url": "/react-jayquiz/index.html"
   }
 ];
