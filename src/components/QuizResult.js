@@ -10,12 +10,14 @@ import {
   setGameOver,
   setOptionsDisabled,
   setOutOfTime,
+  setQuestionNumber,
   setScore,
-  setQuestionNumber
+  setTimedOutAnswers,
+  setWrongAnswers
 } from '../actionCreators';
 
 const QuizResult = props => {
-  const { score, wrongAnswers, handleStartOverClick } = props;
+  const { handleStartOverClick, score, timedOutAnswers, wrongAnswers } = props;
 
   return (
     <div>
@@ -28,8 +30,13 @@ const QuizResult = props => {
           </h3>
           <p>
             You had
-            {` ${wrongAnswers.length} `}
+            {` ${wrongAnswers} `}
             wrong answers.
+          </p>
+          <p>
+            You had
+            {` ${timedOutAnswers} `}
+            timed out answers.
           </p>
           <Button type="primary" onClick={handleStartOverClick}>
             Start Over
@@ -44,18 +51,22 @@ QuizResult.propTypes = {
   handleStartOverClick: PropTypes.func.isRequired,
   preparedQuestions: PropTypes.array,
   score: PropTypes.number,
-  wrongAnswers: PropTypes.array
+  timedOutAnswers: PropTypes.number,
+  wrongAnswers: PropTypes.number
 };
 
 QuizResult.defaultProps = {
   preparedQuestions: [],
   score: 0,
-  wrongAnswers: []
+  timedOutAnswers: 0,
+  wrongAnswers: 0
 };
 
 const mapStateToProps = state => ({
+  preparedQuestions: state.preparedQuestions,
   score: state.score,
-  preparedQuestions: state.preparedQuestions
+  timedOutAnswers: state.timedOutAnswers,
+  wrongAnswers: state.wrongAnswers
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -69,6 +80,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setOptionsDisabled(false));
     dispatch(setOutOfTime(false));
     dispatch(setScore(0));
+    dispatch(setTimedOutAnswers(0));
+    dispatch(setWrongAnswers(0));
   }
 });
 

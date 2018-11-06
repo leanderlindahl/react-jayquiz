@@ -37,8 +37,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      options: [],
-      wrongAnswers: []
+      options: []
     };
   }
 
@@ -97,7 +96,7 @@ class App extends Component {
   }
 
   render() {
-    const { options, wrongAnswers } = this.state;
+    const { options } = this.state;
     const {
       currentQuestionIndex,
       gameOver,
@@ -133,7 +132,7 @@ class App extends Component {
                       totalNumberOfQuestions={questionsPerRound}
                     />
                   ) : (
-                    <QuizResult wrongAnswers={wrongAnswers} />
+                    <QuizResult />
                   )}
                 </>
               ) : (

@@ -11,11 +11,13 @@ import {
   SET_OPTIONS_DISABLED,
   SET_OUT_OF_TIME,
   SET_PREPARED_QUESTIONS,
-  SET_SCORE,
-  SET_SELECTED_OPTION,
   SET_QUESTION_NUMBER,
   SET_QUESTIONS_PER_ROUND,
-  SET_USED_QUESTIONS
+  SET_SCORE,
+  SET_SELECTED_OPTION,
+  SET_TIMED_OUT_ANSWERS,
+  SET_USED_QUESTIONS,
+  SET_WRONG_ANSWERS
 } from './actions';
 
 export function invalidateCategory(category) {
@@ -77,11 +79,17 @@ export function setScore(score) {
 export function setSelectedOption(selected) {
   return { type: SET_SELECTED_OPTION, payload: selected };
 }
+export function setTimedOutAnswers(numberOfTimedOutAnswers) {
+  return { type: SET_TIMED_OUT_ANSWERS, payload: numberOfTimedOutAnswers };
+}
 export function setQuestionNumber(questionNumber) {
   return { type: SET_QUESTION_NUMBER, payload: questionNumber };
 }
 export function setQuestionsPerRound(numberOfQuestions) {
   return { type: SET_QUESTIONS_PER_ROUND, payload: numberOfQuestions };
+}
+export function setWrongAnswers(numberOfWrongAnswers) {
+  return { type: SET_WRONG_ANSWERS, payload: numberOfWrongAnswers };
 }
 export function setUsedQuestions(usedQuestions) {
   return { type: SET_USED_QUESTIONS, payload: usedQuestions };

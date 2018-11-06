@@ -13,9 +13,11 @@ import {
   SET_PREPARED_QUESTIONS,
   SET_SCORE,
   SET_SELECTED_OPTION,
+  SET_TIMED_OUT_ANSWERS,
   SET_QUESTIONS_PER_ROUND,
   SET_USED_QUESTIONS,
-  SET_QUESTION_NUMBER
+  SET_QUESTION_NUMBER,
+  SET_WRONG_ANSWERS
 } from './actions';
 
 const selectedCategory = (state = '18', action) => {
@@ -113,8 +115,20 @@ const questionsPerRound = (
   }
   return state;
 };
+const timedOutAnswers = (state = 0, action) => {
+  if (action.type === SET_TIMED_OUT_ANSWERS) {
+    return action.payload;
+  }
+  return state;
+};
 const usedQuestions = (state = [], action) => {
   if (action.type === SET_USED_QUESTIONS) {
+    return action.payload;
+  }
+  return state;
+};
+const wrongAnswers = (state = 0, action) => {
+  if (action.type === SET_WRONG_ANSWERS) {
     return action.payload;
   }
   return state;
@@ -131,10 +145,12 @@ const rootReducer = combineReducers({
   selectedCategory,
   score,
   selectedOption,
+  timedOutAnswers,
   questions,
   questionNumber,
   questionsPerRound,
-  usedQuestions
+  usedQuestions,
+  wrongAnswers
 });
 
 export default rootReducer;

@@ -12,7 +12,9 @@ import {
   setOutOfTime,
   setScore,
   setSelectedOption,
-  setUsedQuestions
+  setTimedOutAnswers,
+  setUsedQuestions,
+  setWrongAnswers
 } from '../actionCreators';
 import unescapeHTML from '../helpers/unescapeHTML';
 
@@ -45,15 +47,15 @@ class Quiz extends Component {
   }
 
   handleSelectedAnswer = event => {
-    const { handleAnswerState, score, question, usedQuestions } = this.props;
+    const { handleAnswerState, score, question, usedQuestions, wrongAnswers } = this.props;
     const answer = unescapeHTML(question.correct_answer);
     const selectedOption = unescapeHTML(event.target.value);
     const addUsedQuestions = [...usedQuestions, question.question];
 
     if (selectedOption === answer) {
-      handleAnswerState(score + 1, 'right', selectedOption, true, addUsedQuestions);
+      handleAnswerState(score + 1, 'right', selectedOption, true, addUsedQuestions, wrongAnswers);
     } else {
-      handleAnswerState(score, 'wrong', selectedOption, true, addUsedQuestions);
+      handleAnswerState(score, 'wrong', selectedOption, true, addUsedQuestions, wrongAnswers + 1);
     }
   };
 
@@ -91,9 +93,9 @@ class Quiz extends Component {
   }
 
   handleOutOfTime() {
-    const { question, usedQuestions, submitOutOfTime } = this.props;
+    const { question, usedQuestions, submitOutOfTime, timedOutAnswers } = this.props;
     const addUsedQuestions = [...usedQuestions, question.question];
-    submitOutOfTime(addUsedQuestions);
+    submitOutOfTime(addUsedQuestions, timedOutAnswers + 1);
   }
 
   render() {
@@ -227,13 +229,23 @@ const mapStateToProps = state => ({
   outOfTime: state.outOfTime,
   score: state.score,
   selectedOption: state.selectedOption,
-  usedQuestions: state.usedQuestions
+  timedOutAnswers: state.timedOutAnswers,
+  usedQuestions: state.usedQuestions,
+  wrongAnswers: state.wrongAnswers
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleAnswerState(score, answerStatus, selectedOption, optionsDisabled, usedQuestions) {
+  handleAnswerState(
+    score,
+    answerStatus,
+    selectedOption,
+    optionsDisabled,
+    usedQuestions,
+    wrongAnswers
+  ) {
     dispatch(setSelectedOption(selectedOption));
     dispatch(setScore(score));
+    dispatch(setWrongAnswers(wrongAnswers));
     dispatch(setCurrentAnswerStatus(answerStatus));
     dispatch(setDisplayAnswerResponse(true));
     dispatch(setOptionsDisabled(optionsDisabled));
@@ -243,11 +255,12 @@ const mapDispatchToProps = dispatch => ({
   handleShowResult() {
     dispatch(setGameOver(true));
   },
-  submitOutOfTime(usedQuestions) {
+  submitOutOfTime(usedQuestions, timedOutAnswers) {
     dispatch(setOutOfTime(true));
     dispatch(setOptionsDisabled(true));
     dispatch(setDisplayAnswerResponse(true));
     dispatch(setUsedQuestions(usedQuestions));
+    dispatch(setTimedOutAnswers(timedOutAnswers));
   }
 });
 export const Unwrapped = Quiz;
