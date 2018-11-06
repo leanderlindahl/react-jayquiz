@@ -31,3 +31,10 @@
     transform: rotate(360deg);
   }
 }
+
+.lifelines {
+  text-align: right;
+}
+.lifeline-button {
+  margin-left: 5px;
+}

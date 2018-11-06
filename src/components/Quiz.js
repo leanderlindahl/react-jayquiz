@@ -121,7 +121,7 @@ class Quiz extends Component {
 
     return (
       <div className="question-wrapper">
-        <Row>
+        <Row type="flex" align="middle">
           <Col span={12}>
             <Timer
               addSecondsAmount={addSecondsAmount}
@@ -130,13 +130,23 @@ class Quiz extends Component {
               running={!optionsDisabled}
             />
           </Col>
-          <Col span={6}>
-            <Button type="primary" onClick={this.handlePlusTen} disabled={clickedTen}>
-              +10
+          <Col span={12} className="lifelines">
+            <Button
+              type="primary"
+              onClick={this.handlePlusTen}
+              disabled={clickedTen}
+              ghost
+              className="lifeline-button"
+            >
+              +10 seconds
             </Button>
-          </Col>
-          <Col span={6}>
-            <Button type="primary" onClick={this.handleFiftyFifty} disabled={fiftyFifty}>
+            <Button
+              type="primary"
+              onClick={this.handleFiftyFifty}
+              disabled={fiftyFifty}
+              ghost
+              className="lifeline-button"
+            >
               50/50
             </Button>
           </Col>
