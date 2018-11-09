@@ -90,12 +90,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleAnswerState(score, answerStatus, selected) {
-    dispatch(setScore(score));
-    dispatch(setCurrentAnswerStatus(answerStatus));
-    dispatch(setSelectedOption(selected));
-    dispatch(setDisplayAnswerResponse(true));
-  },
+  // handleAnswerState(score, answerStatus, selected) {
+  //   dispatch(setScore(score));
+  //   dispatch(setCurrentAnswerStatus(answerStatus));
+  //   dispatch(setSelectedOption(selected));
+  //   dispatch(setDisplayAnswerResponse(true));
+  // },
   handleShowNext(index, disabled, option, questionNumber) {
     dispatch(setCurrentAnswerStatus(''));
     dispatch(setOptionsDisabled(disabled));

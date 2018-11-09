@@ -183,9 +183,11 @@ App.propTypes = {
   handlePreparedQuestions: PropTypes.func.isRequired,
   increaseQuestionIndex: PropTypes.func.isRequired,
   preparedQuestions: PropTypes.array,
+  resetUsedQuestions: PropTypes.func.isRequired,
   questions: PropTypes.array,
   questionNumber: PropTypes.number,
   questionsPerRound: PropTypes.number,
+  shuffleQuestions: PropTypes.func.isRequired,
   usedQuestions: PropTypes.array
 };
 
