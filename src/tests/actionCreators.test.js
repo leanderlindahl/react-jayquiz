@@ -1,17 +1,19 @@
 import {
-  invalidateCategory,
-  selectCategory,
+  fetchQuestions,
   receiveQuestions,
   requestQuestions,
-  fetchQuestions,
-  setCurrentAnswer,
   setCurrentAnswerStatus,
   setCurrentQuestionIndex,
   setDisplayAnswerResponse,
   setGameOver,
+  setSelectedOption,
   setScore
 } from '../actionCreators';
 
-test('setCurrentAnswer', () => {
-  expect(setCurrentAnswer('8')).toMatchSnapshot();
+test('setGameOver', () => {
+  expect(setGameOver('false')).toMatchSnapshot();
+});
+
+test('setSelectedOption', () => {
+  expect(setSelectedOption('8')).toMatchSnapshot();
 });

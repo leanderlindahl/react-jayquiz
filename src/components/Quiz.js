@@ -7,7 +7,6 @@ import QuestionResult from './QuestionResult';
 import {
   setCurrentAnswerStatus,
   setDisplayAnswerResponse,
-  setGameOver,
   setOptionsDisabled,
   setOutOfTime,
   setScore,
@@ -18,7 +17,7 @@ import {
 } from '../actionCreators';
 import unescapeHTML from '../helpers/unescapeHTML';
 
-class Quiz extends Component {
+export class Quiz extends Component {
   constructor(props) {
     super(props);
 
@@ -130,6 +129,7 @@ class Quiz extends Component {
               onComplete={this.handleOutOfTime}
               reset={currentQuestionIndex.toString()}
               running={!optionsDisabled}
+              id="timer-component"
             />
           </Col>
           <Col span={12} className="lifelines">
@@ -139,6 +139,7 @@ class Quiz extends Component {
               disabled={clickedTen}
               ghost
               className="lifeline-button"
+              id="plus-ten-button"
             >
               +10 seconds
             </Button>
@@ -148,6 +149,7 @@ class Quiz extends Component {
               disabled={fiftyFifty}
               ghost
               className="lifeline-button"
+              id="fifty-fifty-button"
             >
               50/50
             </Button>
@@ -204,7 +206,6 @@ Quiz.propTypes = {
   currentQuestionIndex: PropTypes.number,
   displayAnswerResponse: PropTypes.bool,
   handleAnswerState: PropTypes.func.isRequired,
-  handleShowResult: PropTypes.func.isRequired,
   next: PropTypes.bool,
   options: PropTypes.array,
   outOfTime: PropTypes.bool,
@@ -252,9 +253,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setOutOfTime(true));
     dispatch(setUsedQuestions(usedQuestions));
   },
-  handleShowResult() {
-    dispatch(setGameOver(true));
-  },
   submitOutOfTime(usedQuestions, timedOutAnswers) {
     dispatch(setOutOfTime(true));
     dispatch(setOptionsDisabled(true));
@@ -263,7 +261,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setTimedOutAnswers(timedOutAnswers));
   }
 });
-export const Unwrapped = Quiz;
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

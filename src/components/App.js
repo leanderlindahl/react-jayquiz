@@ -32,7 +32,7 @@ const ScoreDiv = styled.div`
   color: white;
 `;
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
 
@@ -199,7 +199,6 @@ App.defaultProps = {
   usedQuestions: []
 };
 
-export const Unwrapped = App;
 export default connect(
   mapStateToProps,
   mapDispatchToProps

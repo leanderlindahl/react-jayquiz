@@ -1,8 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`setCurrentAnswer 1`] = `
+exports[`setGameOver 1`] = `
+Object {
+  "payload": "false",
+  "type": "SET_GAME_OVER",
+}
+`;
+
+exports[`setSelectedOption 1`] = `
 Object {
   "payload": "8",
-  "type": "SET_CURRENT_ANSWER",
+  "type": "SET_SELECTED_OPTION",
 }
 `;

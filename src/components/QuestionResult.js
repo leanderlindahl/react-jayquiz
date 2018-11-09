@@ -112,7 +112,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setQuestionNumber(number));
   }
 });
-
+export const Unwrapped = QuestionResult;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
