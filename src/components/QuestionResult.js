@@ -10,27 +10,27 @@ import {
   setOptionsDisabled,
   setOutOfTime,
   setQuestionNumber,
-  setScore,
   setSelectedOption
 } from '../actionCreators';
 import unescapeHTML from '../helpers/unescapeHTML';
 
-class QuestionResult extends Component {
+export class QuestionResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
       next: true
     };
+    this.handleClickNext = this.handleClickNext.bind(this);
   }
 
-  handleClickNext = () => {
+  handleClickNext() {
     const { currentQuestionIndex, handleShowNext, questionNumber } = this.props;
     this.setState({
       disabled: false,
       selected: 1
     });
     handleShowNext(currentQuestionIndex, false, '1', questionNumber);
-  };
+  }
 
   render() {
     const { currentAnswerStatus, correctAnswer, handleShowResult, next, outOfTime } = this.props;
@@ -54,11 +54,11 @@ class QuestionResult extends Component {
         )}
         <Divider />
         {next ? (
-          <Button type="primary" onClick={this.handleClickNext}>
+          <Button type="primary" onClick={this.handleClickNext} id="next-question-button">
             Next question
           </Button>
         ) : (
-          <Button type="primary" onClick={handleShowResult}>
+          <Button type="primary" onClick={handleShowResult} id="show-result-button">
             Result
           </Button>
         )}
@@ -70,9 +70,12 @@ class QuestionResult extends Component {
 QuestionResult.propTypes = {
   currentAnswerStatus: PropTypes.string,
   correctAnswer: PropTypes.string,
+  currentQuestionIndex: PropTypes.number,
+  handleShowNext: PropTypes.func.isRequired,
   handleShowResult: PropTypes.func.isRequired,
   next: PropTypes.bool,
-  outOfTime: PropTypes.bool
+  outOfTime: PropTypes.bool,
+  questionNumber: PropTypes.number
 };
 
 QuestionResult.defaultProps = {
@@ -90,12 +93,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // handleAnswerState(score, answerStatus, selected) {
-  //   dispatch(setScore(score));
-  //   dispatch(setCurrentAnswerStatus(answerStatus));
-  //   dispatch(setSelectedOption(selected));
-  //   dispatch(setDisplayAnswerResponse(true));
-  // },
   handleShowNext(index, disabled, option, questionNumber) {
     dispatch(setCurrentAnswerStatus(''));
     dispatch(setOptionsDisabled(disabled));
