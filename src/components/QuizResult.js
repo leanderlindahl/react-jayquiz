@@ -16,7 +16,7 @@ import {
   setWrongAnswers
 } from '../actionCreators';
 
-const QuizResult = props => {
+export const QuizResult = props => {
   const { handleStartOverClick, score, timedOutAnswers, wrongAnswers } = props;
 
   return (
@@ -28,17 +28,17 @@ const QuizResult = props => {
             Your score was:
             {` ${score}`}
           </h3>
-          <p>
+          <p id="wrong-answers">
             You had
             {` ${wrongAnswers} `}
             wrong answers.
           </p>
-          <p>
+          <p id="timed-out-answers">
             You had
             {` ${timedOutAnswers} `}
             timed out answers.
           </p>
-          <Button type="primary" onClick={handleStartOverClick}>
+          <Button type="primary" onClick={handleStartOverClick} id="start-over-button">
             Start Over
           </Button>
         </Col>
@@ -49,14 +49,12 @@ const QuizResult = props => {
 
 QuizResult.propTypes = {
   handleStartOverClick: PropTypes.func.isRequired,
-  preparedQuestions: PropTypes.array,
   score: PropTypes.number,
   timedOutAnswers: PropTypes.number,
   wrongAnswers: PropTypes.number
 };
 
 QuizResult.defaultProps = {
-  preparedQuestions: [],
   score: 0,
   timedOutAnswers: 0,
   wrongAnswers: 0
