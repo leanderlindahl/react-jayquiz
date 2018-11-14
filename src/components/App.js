@@ -18,6 +18,16 @@ import '../styles/App.css';
 const AppContainer = styled('div')`
   text-align: center;
 
+  .content-container {
+    padding: 0 24px;
+    min-height: 280;
+    margin-top: 20px;
+  }
+  .content-container-inner-wrapper {
+    background: #fff;
+    padding: 24;
+    min-height: 280;
+  }
   .lifelines {
     text-align: right;
   }
@@ -106,8 +116,8 @@ export class App extends Component {
       <AppContainer className="App">
         <Layout className="layout">
           <HeaderComponent />
-          <Content style={{ padding: '0 24px', minHeight: 280, marginTop: '20px' }}>
-            <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+          <Content className="content-container">
+            <div className="content-container-inner-wrapper">
               {preparedQuestions.length > 0 ? (
                 <>
                   {!gameOver ? (
