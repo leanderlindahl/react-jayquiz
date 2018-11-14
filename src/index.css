@@ -81,3 +81,5 @@ code {
   background-size: 27px;
   border-color: #8bc53f;
 }
+
+@import '~antd/dist/antd.css';

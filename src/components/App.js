@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { Layout, Col, Row } from 'antd';
+import { Layout } from 'antd';
+import styled from 'react-emotion';
 import shuffleArray from '../helpers/shuffleArray';
 import {
   fetchQuestions,
@@ -10,26 +10,20 @@ import {
   setPreparedQuestions,
   setUsedQuestions
 } from '../actionCreators';
+import HeaderComponent from './HeaderComponent';
 import Quiz from './Quiz';
 import QuizResult from './QuizResult';
 import '../styles/App.css';
 
-const LogoDiv = styled.div`
-  width: 120px;
-  height: 31px;
-  line-height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
-  float: left;
-`;
-const ScoreDiv = styled.div`
-  width: 120px;
-  height: 31px;
-  line-height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
-  float: right;
-  color: white;
+const AppContainer = styled('div')`
+  text-align: center;
+
+  .lifelines {
+    text-align: right;
+  }
+  .lifeline-button {
+    margin-left: 5px;
+  }
 `;
 
 export class App extends Component {
@@ -84,15 +78,18 @@ export class App extends Component {
 
     const question = preparedQuestions[currentQuestionIndex];
 
-    if (question !== undefined) {
-      if (usedQuestions.indexOf(question.question) > -1) {
-        increaseQuestionIndex(currentQuestionIndex + 1);
-      }
-      const options = shuffleArray(question.incorrect_answers.concat(question.correct_answer));
-      this.setState({
-        options
-      });
+    if (!question) {
+      return;
     }
+
+    if (usedQuestions.indexOf(question.question) > -1) {
+      increaseQuestionIndex(currentQuestionIndex + 1);
+    }
+
+    const options = shuffleArray(question.incorrect_answers.concat(question.correct_answer));
+    this.setState({
+      options
+    });
   }
 
   render() {
@@ -101,24 +98,14 @@ export class App extends Component {
       currentQuestionIndex,
       gameOver,
       preparedQuestions,
-      score,
       questionNumber,
       questionsPerRound
     } = this.props;
-    const { Content, Header, Footer } = Layout;
+    const { Content, Footer } = Layout;
     return (
-      <div className="App">
+      <AppContainer className="App">
         <Layout className="layout">
-          <Header>
-            <Row>
-              <Col span={12}>
-                <LogoDiv className="logo">JayQuiz</LogoDiv>
-              </Col>
-              <Col span={12}>
-                <ScoreDiv>{`Score: ${score}`}</ScoreDiv>
-              </Col>
-            </Row>
-          </Header>
+          <HeaderComponent />
           <Content style={{ padding: '0 24px', minHeight: 280, marginTop: '20px' }}>
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
               {preparedQuestions.length > 0 ? (
@@ -142,7 +129,7 @@ export class App extends Component {
           </Content>
           <Footer>{`JayQuiz ${new Date().getFullYear()}`}</Footer>
         </Layout>
-      </div>
+      </AppContainer>
     );
   }
 }
@@ -151,7 +138,6 @@ const mapStateToProps = state => ({
   currentQuestionIndex: state.currentQuestionIndex,
   gameOver: state.gameOver,
   preparedQuestions: state.preparedQuestions,
-  score: state.score,
   questions: state.questions.items,
   questionNumber: state.questionNumber,
   questionsPerRound: state.questionsPerRound,
