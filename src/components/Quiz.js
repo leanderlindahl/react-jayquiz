@@ -101,14 +101,15 @@ export class Quiz extends Component {
     const {
       currentQuestionIndex,
       displayAnswerResponse,
-      next,
       options,
       optionsDisabled,
       question,
       questionNumber,
-      selectedOption,
-      totalNumberOfQuestions
+      questionsPerRound,
+      selectedOption
     } = this.props;
+
+    const next = questionNumber < questionsPerRound;
 
     const { addSecondsAmount, clickedTen, disabledOptions, fiftyFifty } = this.state;
 
@@ -158,7 +159,7 @@ export class Quiz extends Component {
         <Row>
           <Col span={24}>
             <Divider orientation="left">
-              {`Question ${questionNumber}/${totalNumberOfQuestions}`}
+              {`Question ${questionNumber}/${questionsPerRound}`}
             </Divider>
             <div className="question">{unescapeHTML(question.question)}</div>
           </Col>
@@ -202,32 +203,38 @@ export class Quiz extends Component {
 }
 
 Quiz.propTypes = {
-  currentAnswerStatus: PropTypes.string,
   currentQuestionIndex: PropTypes.number,
   displayAnswerResponse: PropTypes.bool,
   handleAnswerState: PropTypes.func.isRequired,
-  next: PropTypes.bool,
   options: PropTypes.array,
+  optionsDisabled: PropTypes.bool,
   outOfTime: PropTypes.bool,
   score: PropTypes.number,
+  selectedOption: PropTypes.string,
   question: PropTypes.object.isRequired,
-  questionNumber: PropTypes.number
+  questionNumber: PropTypes.number,
+  questionsPerRound: PropTypes.number
 };
 
 Quiz.defaultProps = {
-  currentAnswerStatus: '',
   currentQuestionIndex: 0,
   displayAnswerResponse: false,
+  options: [],
+  optionsDisabled: false,
+  outOfTime: false,
   score: 0,
-  questionNumber: 1
+  selectedOption: '',
+  questionNumber: 1,
+  questionsPerRound: 10
 };
 
 const mapStateToProps = state => ({
-  currentAnswerStatus: state.currentAnswerStatus,
   currentQuestionIndex: state.currentQuestionIndex,
   displayAnswerResponse: state.displayAnswerResponse,
   optionsDisabled: state.optionsDisabled,
   outOfTime: state.outOfTime,
+  questionNumber: state.questionNumber,
+  questionsPerRound: state.questionsPerRound,
   score: state.score,
   selectedOption: state.selectedOption,
   timedOutAnswers: state.timedOutAnswers,

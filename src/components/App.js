@@ -13,7 +13,6 @@ import {
 import HeaderComponent from './HeaderComponent';
 import Quiz from './Quiz';
 import QuizResult from './QuizResult';
-import '../styles/App.css';
 
 const AppContainer = styled('div')`
   text-align: center;
@@ -104,13 +103,7 @@ export class App extends Component {
 
   render() {
     const { options } = this.state;
-    const {
-      currentQuestionIndex,
-      gameOver,
-      preparedQuestions,
-      questionNumber,
-      questionsPerRound
-    } = this.props;
+    const { currentQuestionIndex, gameOver, preparedQuestions } = this.props;
     const { Content, Footer } = Layout;
     return (
       <AppContainer className="App">
@@ -121,13 +114,7 @@ export class App extends Component {
               {preparedQuestions.length > 0 ? (
                 <>
                   {!gameOver ? (
-                    <Quiz
-                      next={questionNumber < questionsPerRound}
-                      options={options}
-                      question={preparedQuestions[currentQuestionIndex]}
-                      questionNumber={questionNumber}
-                      totalNumberOfQuestions={questionsPerRound}
-                    />
+                    <Quiz options={options} question={preparedQuestions[currentQuestionIndex]} />
                   ) : (
                     <QuizResult />
                   )}
@@ -149,8 +136,6 @@ const mapStateToProps = state => ({
   gameOver: state.gameOver,
   preparedQuestions: state.preparedQuestions,
   questions: state.questions.items,
-  questionNumber: state.questionNumber,
-  questionsPerRound: state.questionsPerRound,
   usedQuestions: state.usedQuestions
 });
 
@@ -181,8 +166,6 @@ App.propTypes = {
   preparedQuestions: PropTypes.array,
   resetUsedQuestions: PropTypes.func.isRequired,
   questions: PropTypes.array,
-  questionNumber: PropTypes.number,
-  questionsPerRound: PropTypes.number,
   shuffleQuestions: PropTypes.func.isRequired,
   usedQuestions: PropTypes.array
 };
@@ -192,8 +175,6 @@ App.defaultProps = {
   gameOver: false,
   preparedQuestions: [],
   questions: [],
-  questionNumber: 1,
-  questionsPerRound: 10,
   usedQuestions: []
 };
 
