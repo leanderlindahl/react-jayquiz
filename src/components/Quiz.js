@@ -115,6 +115,10 @@ export class Quiz extends Component {
 
     const RadioGroup = Radio.Group;
 
+    const questionWrapperStyle = {
+      padding: '20px'
+    };
+
     const radioStyle = {
       display: 'block',
       height: '40px',
@@ -122,7 +126,7 @@ export class Quiz extends Component {
     };
 
     return (
-      <div className="question-wrapper">
+      <div className="question-wrapper" style={questionWrapperStyle}>
         <Row type="flex" align="middle">
           <Col span={12}>
             <Timer
