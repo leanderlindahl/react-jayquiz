@@ -52,25 +52,44 @@ export class Quiz extends Component {
     const addUsedQuestions = [...usedQuestions, question.question];
 
     if (selectedOption === answer) {
-      handleAnswerState(score + 1, 'right', selectedOption, true, addUsedQuestions, wrongAnswers);
-    } else {
-      handleAnswerState(score, 'wrong', selectedOption, true, addUsedQuestions, wrongAnswers + 1);
+      return handleAnswerState(
+        score + 1,
+        'right',
+        selectedOption,
+        true,
+        addUsedQuestions,
+        wrongAnswers
+      );
     }
+    return handleAnswerState(
+      score,
+      'wrong',
+      selectedOption,
+      true,
+      addUsedQuestions,
+      wrongAnswers + 1
+    );
   };
 
   handleFiftyFifty(event) {
     event.preventDefault();
     const { options, outOfTime, question } = this.props;
     if (!outOfTime && options.length > 3) {
-      event.target.disabled = true;
-      let { disabledOptions } = this.state;
+      const { disabledOptions } = this.state;
 
       const numOptionsToRemove = (options.length / 2) % options.length;
       const wrongAnswers = question.incorrect_answers;
 
-      for (let i = 0; i < numOptionsToRemove; i++) {
-        disabledOptions = [...disabledOptions, wrongAnswers[i]];
-      }
+      let numOptionsRemoved = 0;
+      wrongAnswers.forEach(item => {
+        if (numOptionsRemoved < numOptionsToRemove) {
+          if (!disabledOptions.includes(item)) {
+            disabledOptions.push(item);
+            numOptionsRemoved += 1;
+          }
+        }
+      });
+
       this.setState({
         disabledOptions,
         fiftyFifty: true
