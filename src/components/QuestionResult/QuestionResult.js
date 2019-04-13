@@ -38,16 +38,20 @@ export class QuestionResult extends PureComponent {
     return (
       <>
         <Divider />
-        {outOfTime && currentAnswerStatus === '' ? (
-          <div className="out-of-time">You're out of time!</div>
+        {outOfTime && !currentAnswerStatus ? (
+          <div className="out-of-time">You&apos;re out of time!</div>
         ) : (
           <div className="answer-response">
             Your answer is:
-            <b>{` ${currentAnswerStatus}. `}</b>
+            <strong>
+              {' '}
+              {currentAnswerStatus}
+              {'. '}
+            </strong>
             {currentAnswerStatus !== 'right' ? (
               <div>
-                {`The right answer is: `}
-                <b>{unescapeHTML(correctAnswer)}</b>
+                The right answer is:&nbsp;
+                <strong>{unescapeHTML(correctAnswer)}</strong>
               </div>
             ) : null}
           </div>
