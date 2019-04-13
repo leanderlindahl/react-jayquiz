@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import styled from 'react-emotion';
-import shuffleArray from '../helpers/shuffleArray';
+import shuffleArray from '../../helpers/shuffleArray';
 import {
   fetchQuestions,
   setCurrentQuestionIndex,
   setPreparedQuestions,
   setUsedQuestions
-} from '../actionCreators';
-import HeaderComponent from './HeaderComponent';
-import Quiz from './Quiz';
-import QuizResult from './QuizResult';
+} from '../../actionCreators';
+import HeaderComponent from '../HeaderComponent';
+import Quiz from '../Quiz';
+import QuizResult from '../QuizResult';
 
 const AppContainer = styled('div')`
   text-align: center;
@@ -45,6 +45,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    console.log('this.props', this.props);
     const { handleFetchQuestions } = this.props;
     handleFetchQuestions();
   }

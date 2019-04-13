@@ -11,8 +11,8 @@ import {
   setOutOfTime,
   setQuestionNumber,
   setSelectedOption
-} from '../actionCreators';
-import unescapeHTML from '../helpers/unescapeHTML';
+} from '../../actionCreators';
+import unescapeHTML from '../../helpers/unescapeHTML';
 
 export class QuestionResult extends Component {
   constructor(props) {

@@ -14,7 +14,7 @@ import {
   setScore,
   setTimedOutAnswers,
   setWrongAnswers
-} from '../actionCreators';
+} from '../../actionCreators';
 
 export const QuizResult = props => {
   const { handleStartOverClick, score, timedOutAnswers, wrongAnswers } = props;

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Col, Divider, Radio, Row } from 'antd';
-import Timer from './Timer';
-import QuestionResult from './QuestionResult';
+import Timer from '../Timer';
+import QuestionResult from '../QuestionResult';
 import {
   setCurrentAnswerStatus,
   setDisplayAnswerResponse,
@@ -14,8 +14,8 @@ import {
   setTimedOutAnswers,
   setUsedQuestions,
   setWrongAnswers
-} from '../actionCreators';
-import unescapeHTML from '../helpers/unescapeHTML';
+} from '../../actionCreators';
+import unescapeHTML from '../../helpers/unescapeHTML';
 
 export class Quiz extends Component {
   constructor(props) {
