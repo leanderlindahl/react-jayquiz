@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actionCreators fetchQuestions 1`] = `[Function]`;
+
+exports[`actionCreators requestQuestions 1`] = `
+Object {
+  "category": 18,
+  "type": "REQUEST_QUESTIONS",
+}
+`;
+
+exports[`actionCreators setCurrentAnswerStatus 1`] = `
+Object {
+  "payload": "right",
+  "type": "SET_CURRENT_ANSWER_STATUS",
+}
+`;
+
+exports[`actionCreators setCurrentQuestionIndex 1`] = `
+Object {
+  "payload": 2,
+  "type": "SET_CURRENT_QUESTION_INDEX",
+}
+`;
+
+exports[`actionCreators setDisplayAnswerResponse 1`] = `
+Object {
+  "payload": "true",
+  "type": "SET_DISPLAY_ANSWER_RESPONSE",
+}
+`;
+
+exports[`actionCreators setGameOver 1`] = `
+Object {
+  "payload": "false",
+  "type": "SET_GAME_OVER",
+}
+`;
+
+exports[`actionCreators setOptionsDisabled 1`] = `
+Object {
+  "payload": "true",
+  "type": "SET_OPTIONS_DISABLED",
+}
+`;
+
+exports[`actionCreators setOutOfTime 1`] = `
+Object {
+  "payload": true,
+  "type": "SET_OUT_OF_TIME",
+}
+`;
+
+exports[`actionCreators setQuestionNumber 1`] = `
+Object {
+  "payload": 2,
+  "type": "SET_QUESTION_NUMBER",
+}
+`;
+
+exports[`actionCreators setQuestionsPerRound 1`] = `
+Object {
+  "payload": 10,
+  "type": "SET_QUESTIONS_PER_ROUND",
+}
+`;
+
+exports[`actionCreators setScore 1`] = `
+Object {
+  "payload": 2,
+  "type": "SET_SCORE",
+}
+`;
+
+exports[`actionCreators setSelectedOption 1`] = `
+Object {
+  "payload": "8",
+  "type": "SET_SELECTED_OPTION",
+}
+`;
+
+exports[`actionCreators setTimedOutAnswers 1`] = `
+Object {
+  "payload": 2,
+  "type": "SET_TIMED_OUT_ANSWERS",
+}
+`;
+
+exports[`actionCreators setUsedQuestions 1`] = `
+Object {
+  "payload": Array [
+    "questions alfa",
+    "question beta",
+  ],
+  "type": "SET_USED_QUESTIONS",
+}
+`;
+
+exports[`actionCreators setWrongAnswers 1`] = `
+Object {
+  "payload": 2,
+  "type": "SET_WRONG_ANSWERS",
+}
+`;

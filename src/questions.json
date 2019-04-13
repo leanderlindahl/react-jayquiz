@@ -1,0 +1,85 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "category": "Politics",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "Whose 2016 presidential campaign slogan was &quot;Make America Great Again&quot;?",
+      "correct_answer": "Donald Trump",
+      "incorrect_answers": ["Ted Cruz", "Marco Rubio", "Bernie Sanders"]
+    },
+    {
+      "category": "Entertainment: Music",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Which French duo had UK hits in 1998 with the songs &#039;Sexy Boy&#039;, &#039;Kelly Watch The Stars&#039; &amp; &#039;All I Need&#039;?",
+      "correct_answer": "Air",
+      "incorrect_answers": ["Fire", "Earth", "Water"]
+    },
+    {
+      "category": "Science & Nature",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Which of these stars is the largest?",
+      "correct_answer": "UY Scuti",
+      "incorrect_answers": ["VY Canis Majoris", "Betelgeuse", "RW Cephei"]
+    },
+    {
+      "category": "Art",
+      "type": "boolean",
+      "difficulty": "easy",
+      "question": "Leonardo da Vinci&#039;s Mona Lisa does not have eyebrows.",
+      "correct_answer": "True",
+      "incorrect_answers": ["False"]
+    },
+    {
+      "category": "Entertainment: Film",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "The Queen song `A Kind Of Magic` is featured in which 1986 film?",
+      "correct_answer": "Highlander",
+      "incorrect_answers": ["Flash Gordon", "Labyrinth", "Howard the Duck"]
+    },
+    {
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "If soccer is called football in England, what is American football called in England?",
+      "correct_answer": "American football",
+      "incorrect_answers": ["Combball", "Handball", "Touchdown"]
+    },
+    {
+      "category": "Sports",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "What is the oldest team in the NFL?",
+      "correct_answer": "Arizona Cardinals",
+      "incorrect_answers": ["Chicago Bears", "Green Bay Packers", "New York Giants"]
+    },
+    {
+      "category": "Entertainment: Television",
+      "type": "boolean",
+      "difficulty": "easy",
+      "question": "In Battlestar Galactica (2004), Cylons were created by man as cybernetic workers and soldiers.",
+      "correct_answer": "True",
+      "incorrect_answers": ["False"]
+    },
+    {
+      "category": "Celebrities",
+      "type": "multiple",
+      "difficulty": "easy",
+      "question": "Neil Hamburger is played by which comedian?",
+      "correct_answer": "Gregg Turkington",
+      "incorrect_answers": ["Nathan Fielder", "Tim Heidecker", "Todd Glass"]
+    },
+    {
+      "category": "Entertainment: Japanese Anime & Manga",
+      "type": "multiple",
+      "difficulty": "hard",
+      "question": "What is the name of the school in the anime and manga &quot;Gosick&quot;?",
+      "correct_answer": "St. Marguerite",
+      "incorrect_answers": ["St. Augustine", "St. Mary", "St. Bernadette"]
+    }
+  ]
+}
