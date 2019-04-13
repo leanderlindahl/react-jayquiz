@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Col, Divider, Radio, Row } from 'antd';
-import Timer from './Timer';
-import QuestionResult from './QuestionResult';
+import Timer from '../Timer';
+import QuestionResult from '../QuestionResult';
 import {
   setCurrentAnswerStatus,
   setDisplayAnswerResponse,
@@ -14,10 +14,10 @@ import {
   setTimedOutAnswers,
   setUsedQuestions,
   setWrongAnswers
-} from '../actionCreators';
-import unescapeHTML from '../helpers/unescapeHTML';
+} from '../../actionCreators';
+import unescapeHTML from '../../helpers/unescapeHTML';
 
-export class Quiz extends Component {
+export class Quiz extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -52,25 +52,44 @@ export class Quiz extends Component {
     const addUsedQuestions = [...usedQuestions, question.question];
 
     if (selectedOption === answer) {
-      handleAnswerState(score + 1, 'right', selectedOption, true, addUsedQuestions, wrongAnswers);
-    } else {
-      handleAnswerState(score, 'wrong', selectedOption, true, addUsedQuestions, wrongAnswers + 1);
+      return handleAnswerState(
+        score + 1,
+        'right',
+        selectedOption,
+        true,
+        addUsedQuestions,
+        wrongAnswers
+      );
     }
+    return handleAnswerState(
+      score,
+      'wrong',
+      selectedOption,
+      true,
+      addUsedQuestions,
+      wrongAnswers + 1
+    );
   };
 
   handleFiftyFifty(event) {
     event.preventDefault();
     const { options, outOfTime, question } = this.props;
     if (!outOfTime && options.length > 3) {
-      event.target.disabled = true;
-      let { disabledOptions } = this.state;
+      const { disabledOptions } = this.state;
 
       const numOptionsToRemove = (options.length / 2) % options.length;
       const wrongAnswers = question.incorrect_answers;
 
-      for (let i = 0; i < numOptionsToRemove; i++) {
-        disabledOptions = [...disabledOptions, wrongAnswers[i]];
-      }
+      let numOptionsRemoved = 0;
+      wrongAnswers.forEach(item => {
+        if (numOptionsRemoved < numOptionsToRemove) {
+          if (!disabledOptions.includes(item)) {
+            disabledOptions.push(item);
+            numOptionsRemoved += 1;
+          }
+        }
+      });
+
       this.setState({
         disabledOptions,
         fiftyFifty: true
@@ -101,18 +120,23 @@ export class Quiz extends Component {
     const {
       currentQuestionIndex,
       displayAnswerResponse,
-      next,
       options,
       optionsDisabled,
       question,
       questionNumber,
-      selectedOption,
-      totalNumberOfQuestions
+      questionsPerRound,
+      selectedOption
     } = this.props;
+
+    const next = questionNumber < questionsPerRound;
 
     const { addSecondsAmount, clickedTen, disabledOptions, fiftyFifty } = this.state;
 
     const RadioGroup = Radio.Group;
+
+    const questionWrapperStyle = {
+      padding: '20px'
+    };
 
     const radioStyle = {
       display: 'block',
@@ -121,7 +145,7 @@ export class Quiz extends Component {
     };
 
     return (
-      <div className="question-wrapper">
+      <div className="question-wrapper" style={questionWrapperStyle}>
         <Row type="flex" align="middle">
           <Col span={12}>
             <Timer
@@ -158,7 +182,7 @@ export class Quiz extends Component {
         <Row>
           <Col span={24}>
             <Divider orientation="left">
-              {`Question ${questionNumber}/${totalNumberOfQuestions}`}
+              {`Question ${questionNumber}/${questionsPerRound}`}
             </Divider>
             <div className="question">{unescapeHTML(question.question)}</div>
           </Col>
@@ -202,32 +226,38 @@ export class Quiz extends Component {
 }
 
 Quiz.propTypes = {
-  currentAnswerStatus: PropTypes.string,
   currentQuestionIndex: PropTypes.number,
   displayAnswerResponse: PropTypes.bool,
   handleAnswerState: PropTypes.func.isRequired,
-  next: PropTypes.bool,
   options: PropTypes.array,
+  optionsDisabled: PropTypes.bool,
   outOfTime: PropTypes.bool,
   score: PropTypes.number,
+  selectedOption: PropTypes.string,
   question: PropTypes.object.isRequired,
-  questionNumber: PropTypes.number
+  questionNumber: PropTypes.number,
+  questionsPerRound: PropTypes.number
 };
 
 Quiz.defaultProps = {
-  currentAnswerStatus: '',
   currentQuestionIndex: 0,
   displayAnswerResponse: false,
+  options: [],
+  optionsDisabled: false,
+  outOfTime: false,
   score: 0,
-  questionNumber: 1
+  selectedOption: '',
+  questionNumber: 1,
+  questionsPerRound: 10
 };
 
 const mapStateToProps = state => ({
-  currentAnswerStatus: state.currentAnswerStatus,
   currentQuestionIndex: state.currentQuestionIndex,
   displayAnswerResponse: state.displayAnswerResponse,
   optionsDisabled: state.optionsDisabled,
   outOfTime: state.outOfTime,
+  questionNumber: state.questionNumber,
+  questionsPerRound: state.questionsPerRound,
   score: state.score,
   selectedOption: state.selectedOption,
   timedOutAnswers: state.timedOutAnswers,

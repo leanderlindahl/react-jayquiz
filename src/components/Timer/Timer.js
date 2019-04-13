@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class Timer extends Component {
+class Timer extends PureComponent {
   constructor(props) {
     super(props);
     const { startValueInSeconds } = this.props;

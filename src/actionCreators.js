@@ -8,6 +8,7 @@ import {
   SET_CURRENT_QUESTION_INDEX,
   SET_DISPLAY_ANSWER_RESPONSE,
   SET_GAME_OVER,
+  SET_OPTIONS,
   SET_OPTIONS_DISABLED,
   SET_OUT_OF_TIME,
   SET_PREPARED_QUESTIONS,
@@ -63,6 +64,9 @@ export function setDisplayAnswerResponse(value) {
 }
 export function setGameOver(value) {
   return { type: SET_GAME_OVER, payload: value };
+}
+export function setOptions(options) {
+  return { type: SET_OPTIONS, payload: options };
 }
 export function setOptionsDisabled(state) {
   return { type: SET_OPTIONS_DISABLED, payload: state };

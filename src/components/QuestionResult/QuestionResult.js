@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Divider, Button } from 'antd';
@@ -11,10 +11,10 @@ import {
   setOutOfTime,
   setQuestionNumber,
   setSelectedOption
-} from '../actionCreators';
-import unescapeHTML from '../helpers/unescapeHTML';
+} from '../../actionCreators';
+import unescapeHTML from '../../helpers/unescapeHTML';
 
-export class QuestionResult extends Component {
+export class QuestionResult extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,16 +38,20 @@ export class QuestionResult extends Component {
     return (
       <>
         <Divider />
-        {outOfTime && currentAnswerStatus === '' ? (
-          <div className="out-of-time">You're out of time!</div>
+        {outOfTime && !currentAnswerStatus ? (
+          <div className="out-of-time">You&apos;re out of time!</div>
         ) : (
           <div className="answer-response">
             Your answer is:
-            <b>{` ${currentAnswerStatus}. `}</b>
+            <strong>
+              {' '}
+              {currentAnswerStatus}
+              {'. '}
+            </strong>
             {currentAnswerStatus !== 'right' ? (
               <div>
-                {`The right answer is: `}
-                <b>{unescapeHTML(correctAnswer)}</b>
+                The right answer is:&nbsp;
+                <strong>{unescapeHTML(correctAnswer)}</strong>
               </div>
             ) : null}
           </div>
