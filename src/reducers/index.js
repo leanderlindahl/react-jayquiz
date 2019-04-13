@@ -5,6 +5,7 @@ import currentQuestionIndex from './currentQuestionIndex';
 import displayAnswerResponse from './displayAnswerResponse';
 import gameOver from './gameOver';
 import outOfTime from './outOfTime';
+import options from './options';
 import optionsDisabled from './optionsDisabled';
 import preparedQuestions from './preparedQuestions';
 import questions from './questions';
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   currentQuestionIndex,
   displayAnswerResponse,
   gameOver,
+  options,
   optionsDisabled,
   outOfTime,
   preparedQuestions,

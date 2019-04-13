@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Col, Divider, Radio, Row } from 'antd';
@@ -17,7 +17,7 @@ import {
 } from '../../actionCreators';
 import unescapeHTML from '../../helpers/unescapeHTML';
 
-export class Quiz extends Component {
+export class Quiz extends PureComponent {
   constructor(props) {
     super(props);
 

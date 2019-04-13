@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
@@ -8,7 +8,8 @@ import {
   fetchQuestions,
   setCurrentQuestionIndex,
   setPreparedQuestions,
-  setUsedQuestions
+  setUsedQuestions,
+  setOptions
 } from '../../actionCreators';
 import HeaderComponent from '../HeaderComponent';
 import Quiz from '../Quiz';
@@ -35,17 +36,8 @@ const AppContainer = styled('div')`
   }
 `;
 
-export class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      options: []
-    };
-  }
-
+export class App extends PureComponent {
   componentDidMount() {
-    console.log('this.props', this.props);
     const { handleFetchQuestions } = this.props;
     handleFetchQuestions();
   }
@@ -73,6 +65,7 @@ export class App extends Component {
   prepareSingleQuestion() {
     const {
       currentQuestionIndex,
+      handleSetOptions,
       increaseQuestionIndex,
       preparedQuestions,
       resetUsedQuestions,
@@ -97,14 +90,11 @@ export class App extends Component {
     }
 
     const options = shuffleArray(question.incorrect_answers.concat(question.correct_answer));
-    this.setState({
-      options
-    });
+    handleSetOptions(options);
   }
 
   render() {
-    const { options } = this.state;
-    const { currentQuestionIndex, gameOver, preparedQuestions } = this.props;
+    const { currentQuestionIndex, gameOver, options, preparedQuestions } = this.props;
     const { Content, Footer } = Layout;
     return (
       <AppContainer className="App">
@@ -135,12 +125,16 @@ export class App extends Component {
 const mapStateToProps = state => ({
   currentQuestionIndex: state.currentQuestionIndex,
   gameOver: state.gameOver,
+  options: state.options,
   preparedQuestions: state.preparedQuestions,
   questions: state.questions.items,
   usedQuestions: state.usedQuestions
 });
 
 const mapDispatchToProps = dispatch => ({
+  handleSetOptions(options) {
+    dispatch(setOptions(options));
+  },
   handleFetchQuestions() {
     dispatch(fetchQuestions(18)); // 18 = "Science: Computers"
   },
@@ -162,8 +156,10 @@ App.propTypes = {
   currentQuestionIndex: PropTypes.number,
   gameOver: PropTypes.bool,
   handleFetchQuestions: PropTypes.func.isRequired,
+  handleSetOptions: PropTypes.func.isRequired,
   handlePreparedQuestions: PropTypes.func.isRequired,
   increaseQuestionIndex: PropTypes.func.isRequired,
+  options: PropTypes.array,
   preparedQuestions: PropTypes.array,
   resetUsedQuestions: PropTypes.func.isRequired,
   questions: PropTypes.array,
@@ -174,6 +170,7 @@ App.propTypes = {
 App.defaultProps = {
   currentQuestionIndex: 0,
   gameOver: false,
+  options: [],
   preparedQuestions: [],
   questions: [],
   usedQuestions: []
