@@ -4,10 +4,11 @@
   "private": true,
   "homepage": "https://leanderlindahl.github.io/react-jayquiz/",
   "dependencies": {
-    "@types/jest": "^24.0.11",
-    "@types/node": "^11.13.4",
-    "@types/react": "^16.8.13",
+    "@types/jest": "^24.0.12",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.8",
     "antd": "^3.7.3",
     "cross-fetch": "^2.2.2",
     "emotion": "^9.2.12",
@@ -20,7 +21,8 @@
     "react-scripts": "^2.1.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.4.3"
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
   },
   "scripts": {
     "start": "react-scripts start",

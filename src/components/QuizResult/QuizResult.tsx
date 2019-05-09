@@ -16,7 +16,14 @@ import {
   setWrongAnswers
 } from '../../actionCreators';
 
-export const QuizResult = props => {
+export interface QuizResultProps {
+  handleStartOverClick(): void;
+  score: number;
+  timedOutAnswers: number;
+  wrongAnswers: number;
+}
+
+export const QuizResult = (props: QuizResultProps) => {
   const { handleStartOverClick, score, timedOutAnswers, wrongAnswers } = props;
 
   return (
@@ -47,27 +54,27 @@ export const QuizResult = props => {
   );
 };
 
-QuizResult.propTypes = {
-  handleStartOverClick: PropTypes.func.isRequired,
-  score: PropTypes.number,
-  timedOutAnswers: PropTypes.number,
-  wrongAnswers: PropTypes.number
-};
+// QuizResult.propTypes = {
+//   handleStartOverClick: PropTypes.func.isRequired,
+//   score: PropTypes.number,
+//   timedOutAnswers: PropTypes.number,
+//   wrongAnswers: PropTypes.number
+// };
 
-QuizResult.defaultProps = {
-  score: 0,
-  timedOutAnswers: 0,
-  wrongAnswers: 0
-};
+// QuizResult.defaultProps = {
+//   score: 0,
+//   timedOutAnswers: 0,
+//   wrongAnswers: 0
+// };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   preparedQuestions: state.preparedQuestions,
   score: state.score,
   timedOutAnswers: state.timedOutAnswers,
   wrongAnswers: state.wrongAnswers
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: any) => ({
   handleStartOverClick() {
     dispatch(setCurrentQuestionIndex(0));
     dispatch(setQuestionNumber(1));
